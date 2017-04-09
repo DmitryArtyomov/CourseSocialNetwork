@@ -1,0 +1,29 @@
+nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed aria-expanded="false" data-target="#nav-collapse" data-toggle="collapse" type="button" 
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to SocNet, root_path, class: "navbar-brand"
+    #nav-collapse.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        - unless user_signed_in?
+          li
+            = link_to(t('devise.shared.links.sign_in'), new_user_session_path)
+        - else
+          li.dropdown
+            a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
+              = current_user.email
+              span.caret
+            ul.dropdown-menu
+              li
+                a href="#"  Action
+              li
+                a href="#"  Another action
+              li
+                a href="#"  Something else here
+              li.divider role="separator" 
+              li
+                = link_to(t('devise.shared.links.logout'), destroy_user_session_path, :method => :delete)
