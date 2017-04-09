@@ -34,9 +34,9 @@ gem 'jbuilder', '~> 2.5'
 
 
 gem 'slim-rails'
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap-sass'
 gem 'devise'
-
+gem 'devise-bootstrap-views'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
