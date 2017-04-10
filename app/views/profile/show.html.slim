@@ -1,0 +1,19 @@
+.row
+  .col-sm-3.col-sm-offset-2
+    .page_block.page_photo
+      = image_tag("no-avatar.png", class: 'img-responsive')
+  .col-sm-7
+    .page_block
+      .profile_online Online
+      .page_name = "#{@user.first_name} #{@user.last_name}"
+      hr
+      .row.profile_info
+        .col-sm-4
+          .p_label Date of Birth:
+        .col-sm-8
+          div = @user.date_of_birth.strftime("%-d %B %Y")
+
+        .col-sm-4
+          .p_label Gender:
+        .col-sm-8
+          div = @user.translated_gender

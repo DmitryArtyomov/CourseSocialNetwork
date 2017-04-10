@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   root to: "home#index"
 
-  get 'edit' => "profile#edit", as: 'edit_profile'
-  put 'edit' => "profile#update", as: 'profile'
+  get 'edit', to: "profile#edit", as: 'edit_profile'
+  put 'edit', to: "profile#update", as: 'profile'
+  get '/id:id', to: 'profile#show', as: 'show_profile'
 end
