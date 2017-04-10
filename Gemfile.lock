@@ -65,6 +65,9 @@ GEM
       responders
       warden (~> 1.2.3)
     devise-bootstrap-views (0.0.11)
+    devise_lastseenable (0.0.6)
+      devise
+      rails (>= 3.0.4)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
@@ -195,6 +198,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise-bootstrap-views
+  devise_lastseenable
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)

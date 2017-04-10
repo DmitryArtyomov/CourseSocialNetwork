@@ -4,8 +4,8 @@
       = image_tag("no-avatar.png", class: 'img-responsive')
   .col-sm-7
     .page_block
-      .profile_online Online
-      .page_name = "#{@user.first_name} #{@user.last_name}"
+      .profile_online = online_status
+      .profile_name = "#{@user.first_name} #{@user.last_name}"
       hr
       .row.profile_info
         .col-sm-4
