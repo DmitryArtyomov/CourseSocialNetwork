@@ -37,6 +37,10 @@ gem 'slim-rails'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'devise-bootstrap-views'
+gem 'translate_enum'
+gem 'simple_form'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -1,0 +1,16 @@
+= error_messages(@user)
+.row  
+  = simple_form_for(@user, url: profile_path, html: { method: :put }) do |f|
+    .col-sm-6.col-sm-offset-3
+      .panel.panel-default.devise-bs
+        .panel-heading
+          h4
+            = 'Personal information'
+        .panel-body
+          = f.input :first_name
+          = f.input :last_name
+          = f.input :gender, collection: User.translated_genders, default: 0
+          = f.input :date_of_birth, as: :string
+          = f.button :submit, 'Update', class: 'btn btn-primary'
+
+      = link_to t('.back', default: 'Back'), :back

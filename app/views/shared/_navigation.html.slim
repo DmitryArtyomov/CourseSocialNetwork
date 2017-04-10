@@ -15,15 +15,13 @@ nav.navbar.navbar-default
         - else
           li.dropdown
             a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
-              = current_user.email
+              = current_user.first_name
               span.caret
             ul.dropdown-menu
               li
-                a href="#"  Action
+                = link_to('Profile settings', edit_profile_path)
               li
-                a href="#"  Another action
-              li
-                a href="#"  Something else here
+                = link_to('Account settings', edit_user_registration_path)
               li.divider role="separator" 
               li
                 = link_to(t('devise.shared.links.logout'), destroy_user_session_path, :method => :delete)
