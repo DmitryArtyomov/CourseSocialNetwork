@@ -1,8 +1,7 @@
-.row
-  .col-sm-3.col-sm-offset-2
+  .col-sm-4
     .page_block.page_photo
       = image_tag("no-avatar.png", class: 'img-responsive')
-  .col-sm-7
+  .col-sm-8 
     .page_block
       .profile_online = online_status
       .profile_name = "#{@user.first_name} #{@user.last_name}"
