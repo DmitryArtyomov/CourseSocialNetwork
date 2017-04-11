@@ -3,7 +3,7 @@ $(document).on 'turbolinks:load', ->
   if $('#user_date_of_birth').length > 0
     $('#user_date_of_birth').datetimepicker
       format: 'DD/MM/YYYY'
-      minDate: '01/01/1900'
+      minDate: '1900-01-01'
       maxDate: Date.now()
       viewMode: if val_exist then 'days' else 'decades'
       allowInputToggle: true
