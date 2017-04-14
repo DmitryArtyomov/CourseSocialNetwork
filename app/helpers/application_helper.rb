@@ -21,4 +21,12 @@ module ApplicationHelper
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
+
+  def current_profile
+    if current_user
+      @current_profile ||= current_user.profile
+    else
+      @current_profile = nil
+    end
+  end
 end

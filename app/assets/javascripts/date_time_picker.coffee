@@ -1,7 +1,8 @@
 $(document).on 'turbolinks:load', ->
-  val_exist = $('#user_date_of_birth').attr('value') != undefined && $('#user_date_of_birth').attr('value').length > 0
-  if $('#user_date_of_birth').length > 0
-    $('#user_date_of_birth').datetimepicker
+  input = $("input[id*='date_of_birth']")
+  val_exist = input.attr('value') != undefined && input.attr('value').length > 0
+  if input.length > 0
+    input.datetimepicker
       format: 'DD/MM/YYYY'
       minDate: '1900-01-01'
       maxDate: Date.now()
@@ -9,4 +10,4 @@ $(document).on 'turbolinks:load', ->
       allowInputToggle: true
       useCurrent: false
     if val_exist
-      $('#user_date_of_birth').data('DateTimePicker').date moment.utc($('#user_date_of_birth').attr('value').slice(0, -13))
+      input.data('DateTimePicker').date moment.utc(input.attr('value').slice(0, -13))

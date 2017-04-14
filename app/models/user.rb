@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include TranslateEnum
+  # include TranslateEnum
 
   # Include default devise modules. Others available are:
   # :trackable, :lockable, :timeoutable and :omniauthable
@@ -7,11 +7,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lastseenable
 
-  enum gender: { not_shown: 0, male: 1, female: 2 }
-  translate_enum :gender
+  # enum gender: { not_shown: 0, male: 1, female: 2 }
+  # translate_enum :gender
 
-  validates :first_name, presence: true, length: { minimum: 2, maximum: 30 }
-  validates :last_name, presence: true, length: { minimum: 2, maximum: 30 }
-  validates :gender, presence: true
-  validates :date_of_birth, presence: true
+  has_one :profile, dependent: :destroy, autosave: true
+  accepts_nested_attributes_for :profile
 end

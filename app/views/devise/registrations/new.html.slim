@@ -13,10 +13,11 @@
             = f.input :password, required: true
             = f.input :password_confirmation, required: true
           .col-sm-6
-            = f.input :first_name
-            = f.input :last_name
-            = f.input :gender, collection: User.translated_genders, default: 0
-            = f.input :date_of_birth, as: :string
-
+            = f.simple_fields_for :profile do |profile_form|
+              = profile_form.input :first_name
+              = profile_form.input :last_name
+              = profile_form.input :gender, collection: Profile.translated_genders, default: 0
+              = profile_form.input :date_of_birth, as: :string
+            end
           = f.button :submit, t('.sign_up', default: 'Sign up'), class: 'btn btn-primary center-block'
     = render 'devise/shared/links'

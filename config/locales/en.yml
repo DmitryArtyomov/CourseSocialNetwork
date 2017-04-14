@@ -1,7 +1,7 @@
 en:
   activerecord:
     attributes:
-      user:
+      profile:
         gender_list:
           male: 'Male'
           female: 'Female'

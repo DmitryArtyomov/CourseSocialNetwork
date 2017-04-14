@@ -1,7 +1,7 @@
 .col-sm-2
   .list-group.menu
     - if current_user
-      = link_to(show_profile_path(current_user), class: "list-group-item") { fa_icon "home", text: "My profile" }
+      = link_to(show_profile_path(current_profile), class: "list-group-item") { fa_icon "home", text: "My profile" }
       = link_to('#', class: "list-group-item") { fa_icon "envelope", text: "Messages" }
     - else
       = simple_form_for(:user, url: session_path(:user), html: { role: 'form', class: 'list-group-item' }) do |f|
