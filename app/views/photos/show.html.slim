@@ -1,1 +1,10 @@
-= image_tag(@photo.image)
+.col-sm-9
+  = image_tag(@photo.image, class: "img-responsive center-block-important page_block")
+.col-sm-3
+  .list-group.menu
+  
+    - if @photo.profile == current_profile
+      = link_to(photo_path(@photo, set_avatar: true), method: :patch, class: 'list-group-item')
+        = fa_icon "user-circle", text: "Set as avatar"
+    = link_to(@photo.image.to_s, class: 'list-group-item')
+      = fa_icon "download", text: "Original image"

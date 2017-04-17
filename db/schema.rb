@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170414125316) do
+ActiveRecord::Schema.define(version: 20170417113832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 20170414125316) do
     t.string   "last_name"
     t.datetime "date_of_birth"
     t.integer  "gender"
+    t.integer  "avatar_id"
+    t.index ["avatar_id"], name: "index_profiles_on_avatar_id", using: :btree
     t.index ["first_name"], name: "index_profiles_on_first_name", using: :btree
     t.index ["gender"], name: "index_profiles_on_gender", using: :btree
     t.index ["last_name"], name: "index_profiles_on_last_name", using: :btree
@@ -56,5 +58,6 @@ ActiveRecord::Schema.define(version: 20170414125316) do
   end
 
   add_foreign_key "photos", "profiles"
+  add_foreign_key "profiles", "photos", column: "avatar_id", on_delete: :cascade
   add_foreign_key "profiles", "users"
 end

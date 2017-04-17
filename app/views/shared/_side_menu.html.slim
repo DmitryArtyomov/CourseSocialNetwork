@@ -3,6 +3,7 @@
     - if current_user
       = link_to(show_profile_path(current_profile), class: "list-group-item") { fa_icon "home", text: "My profile" }
       = link_to('#', class: "list-group-item") { fa_icon "envelope", text: "Messages" }
+      = link_to(index_photos_path(current_profile), class: "list-group-item") { fa_icon "camera", text: "Photos" }
     - else
       = simple_form_for(:user, url: session_path(:user), html: { role: 'form', class: 'list-group-item' }) do |f|
         = f.input :email, required: false

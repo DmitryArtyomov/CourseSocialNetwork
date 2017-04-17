@@ -1,22 +1,30 @@
 body
   background: #edeef0
 
+.link-colors
+  a
+    color: #555
+    text-decoration: none
+    &:hover
+      color: #000
+
 .page_block
   background: #fff
   border-radius: 2px
   box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8
   margin: 15px 0 0
   padding: 15px
+  @extend .link-colors
 
 .mtop
   margin: 15px 0 0
-
 
 .devise-bs
   @extend .mtop
 
 .menu
   @extend .mtop
+  @extend .link-colors
 
 .bg-white
   background: #fff
@@ -43,3 +51,12 @@ body
 
 .w-100
   width: 100%
+
+.center-block-important
+  display: block
+  margin-left: auto !important
+  margin-right: auto !important
+
+.profile-photos
+  max-width: 20%
+  margin-bottom: 0 !important

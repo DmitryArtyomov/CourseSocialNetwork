@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: profiles
+#
+#  id            :integer          not null, primary key
+#  user_id       :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  first_name    :string
+#  last_name     :string
+#  date_of_birth :datetime
+#  gender        :integer
+#  avatar_id     :integer
+#
+
 class Profile < ApplicationRecord
   include TranslateEnum
 
@@ -10,4 +25,5 @@ class Profile < ApplicationRecord
   validates :gender, :date_of_birth, presence: true
 
   has_many :photos
+  belongs_to :avatar, class_name: 'Photo', optional: true
 end

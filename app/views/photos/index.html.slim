@@ -1,0 +1,7 @@
+.col-sm-12
+  .page_block
+    .row
+      - @photos.each do |photo|
+        .col-sm-3
+          = link_to(show_photo_path(@profile, photo_id: photo.id, profile_id: photo.profile), class: "thumbnail")
+            = image_tag(photo.image)

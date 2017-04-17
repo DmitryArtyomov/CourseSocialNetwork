@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   put 'edit', to: 'profiles#update', as: 'profile'
   get '/id:id', to: 'profiles#show', as: 'show_profile'
 
-  resources :photos
+  get 'id:profile_id/photos', to: 'photos#index', as: 'index_photos'
+  get 'id:profile_id/photos/:photo_id', to: 'photos#show', as: 'show_photo'
+  resources :photos, except: [:index, :show]
 end

@@ -38,6 +38,9 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    annotate (2.6.5)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
     arel (7.1.4)
     autoprefixer-rails (6.7.7.1)
       execjs
@@ -72,6 +75,10 @@ GEM
     devise_lastseenable (0.0.6)
       devise
       rails (>= 3.0.4)
+    dotenv (2.2.0)
+    dotenv-rails (2.2.0)
+      dotenv (= 2.2.0)
+      railties (>= 3.2, < 5.1)
     erubis (2.7.0)
     excon (0.55.0)
     execjs (2.7.0)
@@ -216,6 +223,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 4.17.47)
   byebug
@@ -224,6 +232,7 @@ DEPENDENCIES
   devise
   devise-bootstrap-views
   devise_lastseenable
+  dotenv-rails
   fog-aws
   font-awesome-rails
   jbuilder (~> 2.5)
