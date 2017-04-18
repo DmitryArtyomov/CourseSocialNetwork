@@ -11,7 +11,7 @@ class PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
     @photo.profile = current_profile
     if @photo.save
-      redirect_to @photo
+      redirect_to show_photo_path(photo_id: @photo, profile_id: @photo.profile)
     else
       render "new"
     end
@@ -22,23 +22,48 @@ class PhotosController < ApplicationController
   end
 
   def index
-    @photos = Photo.where(profile: params[:profile_id])
+    @photos = Photo.where(profile: params[:profile_id]).order(id: :desc)
   end
 
   def update
     @photo = Photo.find(params[:id])
     if @photo.profile == current_profile
       set_avatar if params[:set_avatar]
+      remove_avatar if params[:remove_avatar]
     end
   end
 
+  def destroy
+    @photo = Photo.find(params[:id])
+    profile = @photo.profile
+    if profile == current_profile
+      @photo.image.remove!
+      if @photo.destroy
+        flash[:notice] = "Photo was succesfully deleted"
+      else
+        flash[:error] = "Error deleting photo"
+      end
+    end
+    redirect_to index_photos_path(profile_id: profile)
+  end
+
   private
+
+  def remove_avatar
+    current_profile.avatar = nil
+    if current_profile.save
+      flash[:notice] = "Avatar was succesfully removed"
+    else
+      flash[:error] = "Error removing avatar"
+    end
+    redirect_to show_profile_path @photo.profile
+  end
 
   def set_avatar
     @photo = Photo.find(params[:id])    
     current_profile.avatar = @photo
     if current_profile.save
-      flash[:notice] = "Avatar succesfully set"
+      flash[:notice] = "Avatar was succesfully set"
     else
       flash[:error] = "Error setting avatar"
     end
@@ -46,6 +71,6 @@ class PhotosController < ApplicationController
   end
 
   def photo_params
-    params.require(:photo).permit(:image)
+    params.fetch(:photo, {}).permit(:image)
   end
 end

@@ -13,4 +13,13 @@ class Photo < ApplicationRecord
   belongs_to :profile
 
   mount_uploader :image, PhotoUploader
+  validates_presence_of :image
+
+  def next
+    @next ||= self.class.where(profile: profile).where("id > ?", id).first
+  end
+
+  def previous
+    @previous ||= self.class.where(profile: profile).where("id < ?", id).last
+  end
 end

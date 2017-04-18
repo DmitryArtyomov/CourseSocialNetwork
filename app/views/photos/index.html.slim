@@ -1,7 +1,12 @@
 .col-sm-12
   .page_block
+    = simple_form_for(Photo.new) do |f|
+      = f.file_field :image, required: true
+      = f.button :submit, t('.upload', default: 'Upload'), class: 'btn btn-primary center-block'
+
+  .page_block
     .row
       - @photos.each do |photo|
         .col-sm-3
-          = link_to(show_photo_path(@profile, photo_id: photo.id, profile_id: photo.profile), class: "thumbnail")
+          = link_to(show_photo_path(photo_id: photo.id, profile_id: photo.profile), class: "thumbnail")
             = image_tag(photo.image)

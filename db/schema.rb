@@ -58,6 +58,6 @@ ActiveRecord::Schema.define(version: 20170417113832) do
   end
 
   add_foreign_key "photos", "profiles"
-  add_foreign_key "profiles", "photos", column: "avatar_id", on_delete: :cascade
+  add_foreign_key "profiles", "photos", column: "avatar_id", on_delete: :nullify
   add_foreign_key "profiles", "users"
 end

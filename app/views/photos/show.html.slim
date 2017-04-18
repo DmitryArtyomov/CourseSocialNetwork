@@ -1,10 +1,18 @@
-.col-sm-9
+.col-sm-11.col-md-9
+  .page_block
+    .row
+      .col-sm-6.text-left
+        - if @photo.next
+          div = link_to('Previous', show_photo_path(photo_id: @photo.next, profile_id: @photo.next.profile))
+      .col-sm-6.text-right
+        - if @photo.previous
+          div = link_to('Next', show_photo_path(photo_id: @photo.previous, profile_id: @photo.previous.profile))
   = image_tag(@photo.image, class: "img-responsive center-block-important page_block")
-.col-sm-3
-  .list-group.menu
-  
+.col-sm-1.col-md-3.list-group.right-menu
     - if @photo.profile == current_profile
-      = link_to(photo_path(@photo, set_avatar: true), method: :patch, class: 'list-group-item')
-        = fa_icon "user-circle", text: "Set as avatar"
-    = link_to(@photo.image.to_s, class: 'list-group-item')
-      = fa_icon "download", text: "Original image"
+      - if current_profile.avatar == @photo
+        = fa_icon_link('Remove avatar', 'user-circle-o', photo_path(@photo, remove_avatar: true), method: :patch)
+      - else
+        = fa_icon_link('Set as avatar', 'user-circle', photo_path(@photo, set_avatar: true), method: :patch)
+      = fa_icon_link('Delete photo', 'trash', photo_path(@photo), method: :delete)
+    = fa_icon_link('Original image', 'download', @photo.image.to_s)
