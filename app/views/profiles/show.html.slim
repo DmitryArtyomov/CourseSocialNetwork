@@ -9,13 +9,13 @@
 .col-sm-8
   .page_block
     .profile_online = online_status
-    .profile_name = "#{@profile.first_name} #{@profile.last_name}"
+    .profile_name = @profile.full_name
     hr
-    .row.profile_info
-      .col-sm-4.p_label Date of Birth:
+    .row.profile-info
+      .col-sm-4.p-label Date of Birth:
       .col-sm-8 = @profile.date_of_birth.strftime("%-d %B %Y")
 
-      .col-sm-4.p_label Gender:
+      .col-sm-4.p-label Gender:
       .col-sm-8 = @profile.translated_gender
 
   - unless @profile.photos.count.zero?

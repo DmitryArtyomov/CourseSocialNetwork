@@ -18,7 +18,7 @@ class PhotosController < ApplicationController
   end
 
   def show
-    @photo = Photo.find(params[:photo_id])
+    @photo = Photo.where(profile: params[:profile_id]).find(params[:photo_id])
   end
 
   def index
@@ -37,8 +37,8 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     profile = @photo.profile
     if profile == current_profile
-      @photo.image.remove!
       if @photo.destroy
+        @photo.image.remove!
         flash[:notice] = "Photo was succesfully deleted"
       else
         flash[:error] = "Error deleting photo"

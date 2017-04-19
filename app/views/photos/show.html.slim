@@ -1,17 +1,17 @@
 .col-sm-11.col-md-9
   .page_block
-    .row
-      .col-sm-6.text-left
-        - if @photo.next
-          div = fa_icon_link('Previous', 'chevron-left',
-            show_photo_path(photo_id: @photo.next, profile_id: @photo.next.profile), class: '')
-      .col-sm-6.text-right
-        - if @photo.previous
-          div = fa_icon_link('Next', 'chevron-right',
-            show_photo_path(photo_id: @photo.previous, profile_id: @photo.previous.profile),
-            class: '', text_first: true)
+    - if @photo.next
+      = fa_icon_link('Previous', 'chevron-left',
+        show_photo_path(photo_id: @photo.next, profile_id: @photo.next.profile), class: '')
+    - if @photo.previous
+      = fa_icon_link('Next', 'chevron-right',
+        show_photo_path(photo_id: @photo.previous, profile_id: @photo.previous.profile),
+        class: 'pull-right', text_first: true)
+
   = image_tag(@photo.image, class: "img-responsive center-block-important page_block")
-.col-sm-1.col-md-3.list-group.right-menu
+
+.col-sm-1.col-md-3.right-menu
+  .list-group
     - if @photo.profile == current_profile
       - if current_profile.avatar == @photo
         = fa_icon_link('Remove avatar', 'user-circle-o', photo_path(@photo, remove_avatar: true), method: :patch)
@@ -19,3 +19,13 @@
         = fa_icon_link('Set as avatar', 'user-circle', photo_path(@photo, set_avatar: true), method: :patch)
       = fa_icon_link('Delete photo', 'trash', photo_path(@photo), method: :delete)
     = fa_icon_link('Original image', 'download', @photo.image.to_s)
+
+  .page_block.hidden-sm
+    .row.vert-align
+      .col-sm-4
+        div = link_to('', show_profile_path(@photo.profile), class: "profile-mini-photo",
+          style: "background-image: url('#{current_profile.avatar.image}');")
+      .col-sm-8.ph-0
+        div
+          = link_to(@photo.profile.full_name, show_profile_path(@photo.profile))
+          .muted-color = @photo.created_at.strftime("%-d %B %Y")

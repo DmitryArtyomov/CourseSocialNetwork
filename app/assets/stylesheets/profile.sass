@@ -20,6 +20,10 @@ body
     .header_count
       color: #939393
       padding: 0 0.25em
+  &:after
+    clear: both
+    content: ""
+    display: block
 
 .devise-bs
   @extend .mtop
@@ -30,6 +34,12 @@ body
   @extend .link-colors
   span
     @extend .hidden-sm
+  .list-group
+    margin-bottom: 15px
+    .list-group-item
+      @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+        padding: 10px 0
+        text-align: center
 
 .left-menu
   @extend .menu
@@ -60,16 +70,18 @@ body
   line-height: 18px
   color: #939393
 
-.profile_info
-  .p_label
-    color: #828282
-  
+.profile-info
   line-height: 150%
+  .p-label
+    @extend .muted-color
 
-.profile-thumb
+.photo-row
+  margin-bottom: -20px
+
+.photo-thumb
   @extend .thumbnail
-  margin-bottom: 0 !important
   width: 100%
+  padding: 0
   padding-top: 100%
   background-position: center center
   background-size: cover
@@ -84,8 +96,24 @@ body
     /* modern browsers */
     opacity: 0
 
+.profile-thumb
+  @extend .photo-thumb
+  margin-bottom: 0
+
 .profile-photo-col
   @extend .col-centered
 
 .fa
   @extend .fa-fw
+
+form#new_photo
+  input#photo_image
+    display: inline-block
+    padding-top: 0.4em
+    max-width: 75%
+  input[type='submit']
+    @extend .pull-right
+
+.profile-mini-photo
+  @extend .profile-thumb
+  border-radius: 50%

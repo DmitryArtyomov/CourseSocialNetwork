@@ -1,10 +1,7 @@
 = error_messages(@photo)
-.row
-  .col-sm-6.col-sm-offset-3
-    .panel.panel-default.devise-bs
-      .panel-heading
-        h4 = t('.new_photo', default: 'Photo upload')
-      .panel-body
-        = simple_form_for(@photo) do |f|
-          = f.file_field :image, required: true
-          = f.button :submit, t('.upload', default: 'Upload'), class: 'btn btn-primary center-block'
+.col-sm-6.col-sm-offset-3
+  .panel.panel-default.devise-bs
+    .panel-heading
+      h4 = t('.new_photo', default: 'Photo upload')
+    .panel-body
+      = render 'form'

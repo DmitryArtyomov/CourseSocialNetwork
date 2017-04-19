@@ -1,0 +1,3 @@
+= simple_form_for(@photo || Photo.new) do |f|
+  = f.file_field :image, required: true
+  = f.button :submit, t('.upload', default: 'Upload'), class: 'btn btn-primary'
