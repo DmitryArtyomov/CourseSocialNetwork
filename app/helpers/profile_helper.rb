@@ -24,7 +24,11 @@ module ProfileHelper
     html_options[:class] ||= 'list-group-item'
     html_options[:title] ||= name
     link_to(options, html_options) do
-      fa_icon(icon) + "<span> #{name}</span>".html_safe
+      if html_options[:text_first]
+        "<span>#{name} </span>".html_safe + fa_icon(icon)
+      else
+        fa_icon(icon) + "<span> #{name}</span>".html_safe
+      end
     end
   end
 end

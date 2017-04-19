@@ -2,7 +2,7 @@ body
   background: #edeef0
 
 .link-colors
-  a
+  a:not(.btn)
     color: #555
     text-decoration: none
     &:hover
@@ -33,11 +33,15 @@ body
 
 .left-menu
   @extend .menu
+  @media (max-width: $screen-xs-max)
+    padding-left: 15px
 
 .right-menu
   @extend .menu
   padding-left: 15px
-  padding-right: 0
+  padding-right: 0px
+  @media (max-width: $screen-xs-max)
+    padding-right: 15px
 
 .bg-white
   background: #fff
@@ -82,3 +86,6 @@ body
 
 .profile-photo-col
   @extend .col-centered
+
+.fa
+  @extend .fa-fw
