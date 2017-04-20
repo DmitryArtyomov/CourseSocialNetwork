@@ -1,5 +1,5 @@
 .col-sm-4
-  .page_block.page_photo
+  .page-block.page_photo
     - if @profile.avatar
       = link_to(show_photo_path(photo_id: @profile.avatar.id, profile_id: @profile))
         = image_tag(@profile.avatar.image, class: 'img-responsive')
@@ -7,7 +7,7 @@
       = image_tag("no-avatar.png", class: 'img-responsive')
 
 .col-sm-8
-  .page_block
+  .page-block
     .profile_online = online_status
     .profile_name = @profile.full_name
     hr
@@ -19,7 +19,7 @@
       .col-sm-8 = @profile.translated_gender
 
   - unless @profile.photos.count.zero?
-    .page_block
+    .page-block
       .header
         = link_to("#{resource_owner(@profile)} photos", index_photos_path(profile_id: @profile))
         span.header_count  = " #{@profile.photos.count}"

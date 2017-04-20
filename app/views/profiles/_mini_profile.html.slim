@@ -1,0 +1,9 @@
+.mini-profile-block(class = "#{visibility}")
+  .row.vert-align
+    .col-xs-4.mini-avatar-col
+      div = link_to('', show_profile_path(profile), class: "mini-avatar",
+        style: "background-image: url('#{profile.avatar.image}');")
+    .col-xs-8.px-0
+      div
+        = link_to(profile.full_name, show_profile_path(profile))
+        .muted-color = date.strftime("%-d %B %Y")

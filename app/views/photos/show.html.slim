@@ -1,5 +1,5 @@
 .col-sm-11.col-md-9
-  .page_block
+  .page-block
     - if @photo.next
       = fa_icon_link('Previous', 'chevron-left',
         show_photo_path(photo_id: @photo.next, profile_id: @photo.next.profile), class: '')
@@ -8,7 +8,9 @@
         show_photo_path(photo_id: @photo.previous, profile_id: @photo.previous.profile),
         class: 'pull-right', text_first: true)
 
-  = image_tag(@photo.image, class: "img-responsive center-block-important page_block")
+  = image_tag(@photo.image, class: "img-responsive center-block-important page-block")
+
+  = render 'profiles/mini_profile', profile: @photo.profile, date: @photo.created_at, visibility: 'visible-sm'
 
 .col-sm-1.col-md-3.right-menu
   .list-group
@@ -20,12 +22,4 @@
       = fa_icon_link('Delete photo', 'trash', photo_path(@photo), method: :delete)
     = fa_icon_link('Original image', 'download', @photo.image.to_s)
 
-  .page_block.hidden-sm
-    .row.vert-align
-      .col-sm-4
-        div = link_to('', show_profile_path(@photo.profile), class: "profile-mini-photo",
-          style: "background-image: url('#{current_profile.avatar.image}');")
-      .col-sm-8.ph-0
-        div
-          = link_to(@photo.profile.full_name, show_profile_path(@photo.profile))
-          .muted-color = @photo.created_at.strftime("%-d %B %Y")
+  = render 'profiles/mini_profile', profile: @photo.profile, date: @photo.created_at, visibility: 'hidden-sm'
