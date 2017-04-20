@@ -1,10 +1,12 @@
 .col-sm-12
-  .page-block
-    = render 'form'
+  - if @profile == current_profile
+    .page-block
+      = render 'form'
 
-  .page-block
-    .row.photo-row
-      - @photos.each do |photo|
-        .col-sm-3
-          = link_to('', show_photo_path(photo_id: photo.id, profile_id: photo.profile), class: "photo-thumb",
-            style: "background-image: url('#{photo.image}');")
+  - unless @photos.count.zero?
+    .page-block
+      .row.photo-row
+        - @photos.each do |photo|
+          .col-sm-3
+            = link_to('', show_photo_path(photo_id: photo.id, profile_id: photo.profile), class: "photo-thumb",
+              style: "background-image: url('#{photo.image}');")
