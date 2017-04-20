@@ -29,12 +29,27 @@
   display: flex
   align-items: center
 
-.px-0
+.pl-0
   padding-left: 0
+
+.pr-0
   padding-right: 0
 
+.px-0
+  @extend .pl-0
+  @extend .pr-0
+
 .mtop
-  margin: 15px 0 0
+  margin-top: 15px
+
+.mbot
+  margin-bottom: 15px
+
+.mt-0
+  margin-top: 0 !important
+
+.mb-0
+  margin-bottom: 0 !important
 
 .w-100
   width: 100%
@@ -62,3 +77,10 @@
 
 .bg-white
   background: #fff
+
+.hide-overflow
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+  width: 100%
+  display: block

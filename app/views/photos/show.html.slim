@@ -10,16 +10,17 @@
 
   = image_tag(@photo.image, class: "img-responsive center-block-important page-block")
 
-  = render 'profiles/mini_profile', profile: @photo.profile, date: @photo.created_at, visibility: 'visible-sm'
+  = render 'profiles/mini_profile', profile: @photo.profile, date: @photo.created_at, classes: 'visible-sm'
 
 .col-sm-1.col-md-3.right-menu
+  = render 'profiles/mini_profile', profile: @photo.profile, date: @photo.created_at, classes: 'hidden-sm mt-0 mbot'
+
   .list-group
+    = fa_icon_link("#{resource_owner(@photo.profile)} photos", 'camera', index_photos_path(profile_id: @photo.profile))
     - if @photo.profile == current_profile
       - if current_profile.avatar == @photo
         = fa_icon_link('Remove avatar', 'user-circle-o', photo_path(@photo, remove_avatar: true), method: :patch)
       - else
         = fa_icon_link('Set as avatar', 'user-circle', photo_path(@photo, set_avatar: true), method: :patch)
       = fa_icon_link('Delete photo', 'trash', photo_path(@photo), method: :delete)
-    = fa_icon_link('Original image', 'download', @photo.image.to_s)
-
-  = render 'profiles/mini_profile', profile: @photo.profile, date: @photo.created_at, visibility: 'hidden-sm'
+    = fa_icon_link('Original image', 'download', @photo.image.to_s, target: :_blank)

@@ -17,6 +17,6 @@ module ProfileHelper
   end
 
   def resource_owner(profile)
-    current_profile == profile ? 'My' : "#{profile.first_name.capitalize}'s"
+    current_profile == profile ? 'My' : "#{profile.first_name.capitalize}"
   end
 end
