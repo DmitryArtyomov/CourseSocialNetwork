@@ -1,12 +1,13 @@
 .col-sm-11.col-md-9
-  .page-block
-    - if @photo.next
-      = fa_icon_link('Previous', 'chevron-left',
-        show_photo_path(photo_id: @photo.next, profile_id: @photo.next.profile), class: '')
-    - if @photo.previous
-      = fa_icon_link('Next', 'chevron-right',
-        show_photo_path(photo_id: @photo.previous, profile_id: @photo.previous.profile),
-        class: 'pull-right', text_first: true)
+  - if @photo.next || @photo.previous
+    .page-block
+      - if @photo.next
+        = fa_icon_link('Previous', 'chevron-left',
+          show_photo_path(photo_id: @photo.next, profile_id: @photo.next.profile), class: '')
+      - if @photo.previous
+        = fa_icon_link('Next', 'chevron-right',
+          show_photo_path(photo_id: @photo.previous, profile_id: @photo.previous.profile),
+          class: 'pull-right', text_first: true)
 
   = image_tag(@photo.image, class: "img-responsive center-block-important page-block")
 
