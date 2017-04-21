@@ -6,5 +6,5 @@
         style: "background-image: url('#{avatar}');")
     .col-xs-8.mini-text-col
       .hide-overflow
-        = link_to(profile.full_name, profile_path(profile))
+        = link_to(profile.decorate.full_name, profile_path(profile))
         .muted-color = date.strftime("%-d %B %Y")

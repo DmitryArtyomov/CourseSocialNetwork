@@ -46,6 +46,7 @@ gem 'devise_lastseenable'
 gem 'font-awesome-rails'
 gem 'fog-aws'
 gem 'carrierwave'
+gem 'draper', '3.0.0.pre1'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

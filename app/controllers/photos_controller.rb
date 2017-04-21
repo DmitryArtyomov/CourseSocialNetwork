@@ -23,7 +23,7 @@ class PhotosController < ApplicationController
 
   def index
     @photos = Photo.where(profile: params[:profile_id]).order(id: :desc)
-    @profile = Profile.find_by(id: params[:profile_id])
+    @profile = Profile.find_by(id: params[:profile_id]).decorate
   end
 
   def update
