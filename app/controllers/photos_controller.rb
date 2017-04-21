@@ -11,14 +11,14 @@ class PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
     @photo.profile = current_profile
     if @photo.save
-      redirect_to show_photo_path(photo_id: @photo, profile_id: @photo.profile)
+      redirect_to profile_photo_path(profile_id: @photo.profile, id: @photo)
     else
       render "new"
     end
   end
 
   def show
-    @photo = Photo.where(profile: params[:profile_id]).find(params[:photo_id])
+    @photo = Photo.where(profile: params[:profile_id]).find(params[:id])
   end
 
   def index
@@ -45,7 +45,7 @@ class PhotosController < ApplicationController
         flash[:error] = "Error deleting photo"
       end
     end
-    redirect_to index_photos_path(profile_id: profile)
+    redirect_to profile_photos_path(profile_id: profile)
   end
 
   private
@@ -57,18 +57,18 @@ class PhotosController < ApplicationController
     else
       flash[:error] = "Error removing avatar"
     end
-    redirect_to show_profile_path @photo.profile
+    redirect_to profile_path @photo.profile
   end
 
   def set_avatar
-    @photo = Photo.find(params[:id])    
+    @photo = Photo.find(params[:id])
     current_profile.avatar = @photo
     if current_profile.save
       flash[:notice] = "Avatar was succesfully set"
     else
       flash[:error] = "Error setting avatar"
     end
-    redirect_to show_profile_path @photo.profile
+    redirect_to profile_path @photo.profile
   end
 
   def photo_params

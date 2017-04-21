@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     if request.referrer == new_user_session_url
       super
     else
-      stored_location_for(resource) || request.referrer || show_profile_path(resource)
+      stored_location_for(resource) || request.referrer || profile_path(resource)
     end
   end
 

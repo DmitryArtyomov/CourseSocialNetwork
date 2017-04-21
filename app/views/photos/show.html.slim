@@ -3,10 +3,10 @@
     .page-block
       - if @photo.next
         = fa_icon_link('Previous', 'chevron-left',
-          show_photo_path(photo_id: @photo.next, profile_id: @photo.next.profile), class: '')
+          profile_photo_path(profile_id: @photo.next.profile, id: @photo.next), class: '')
       - if @photo.previous
         = fa_icon_link('Next', 'chevron-right',
-          show_photo_path(photo_id: @photo.previous, profile_id: @photo.previous.profile),
+          profile_photo_path(profile_id: @photo.previous.profile, id: @photo.previous),
           class: 'pull-right', text_first: true)
 
   = image_tag(@photo.image, class: "img-responsive center-block-important page-block")
@@ -17,11 +17,14 @@
   = render 'profiles/mini_profile', profile: @photo.profile, date: @photo.created_at, classes: 'hidden-sm mt-0 mbot'
 
   .list-group
-    = fa_icon_link("#{resource_owner(@photo.profile)} photos", 'camera', index_photos_path(profile_id: @photo.profile))
+    = fa_icon_link("#{resource_owner(@photo.profile)} photos", 'camera', profile_photos_path(profile_id: @photo.profile))
     - if @photo.profile == current_profile
       - if current_profile.avatar == @photo
-        = fa_icon_link('Remove avatar', 'user-circle-o', photo_path(@photo, remove_avatar: true), method: :patch)
+        = fa_icon_link('Remove avatar', 'user-circle-o', profile_photo_path(profile_id: @photo.profile,
+          id: @photo, remove_avatar: true), method: :patch)
       - else
-        = fa_icon_link('Set as avatar', 'user-circle', photo_path(@photo, set_avatar: true), method: :patch)
-      = fa_icon_link('Delete photo', 'trash', photo_path(@photo), method: :delete)
+        = fa_icon_link('Set as avatar', 'user-circle', profile_photo_path(profile_id: @photo.profile,
+          id: @photo, set_avatar: true), method: :patch)
+      = fa_icon_link('Delete photo', 'trash', profile_photo_path(profile_id: @photo.profile,
+          id: @photo), method: :delete)
     = fa_icon_link('Original image', 'download', @photo.image.to_s, target: :_blank)
