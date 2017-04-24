@@ -3,13 +3,18 @@
     = fa_icon_link('My profile', 'home', profile_path(current_profile))
     = fa_icon_link('Messages', 'envelope', '#')
     = fa_icon_link('Photos', 'camera', profile_photos_path(current_profile))
-  - else
-    = simple_form_for(:user, url: session_path(:user), html: { role: 'form', class: 'list-group-item' }) do |f|
-      = f.input :email, required: false
-      = f.input :password, autocomplete: 'off', required: false
-      - if devise_mapping.rememberable?
-        .checkbox
-          = f.input :remember_me, as: :boolean, label: t('.remember_me', default: 'Remember me')
-      = f.button :submit, t('.sign_in', default: 'Sign in'), class: 'btn btn-primary w-100'
-    .list-group-item
-      = link_to t('.sign_up', default: 'Sign up'), new_registration_path(:user), class: 'btn btn-primary w-100'
+  - elsif !(controller_name == 'sessions' && action_name == 'new')
+    .hidden-sm
+      = simple_form_for(:user, url: session_path(:user), html: { role: 'form', class: 'list-group-item' }) do |f|
+        = f.input :email, required: false
+        = f.input :password, autocomplete: 'off', required: false
+        - if devise_mapping.rememberable?
+          .checkbox
+            = f.input :remember_me, as: :boolean, label: t('.remember_me', default: 'Remember me')
+        = f.button :submit, t('.sign_in', default: 'Sign in'), class: 'btn btn-primary w-100'
+      .list-group-item
+        = link_to t('.sign_up', default: 'Sign up'), new_registration_path(:user), class: 'btn btn-primary w-100'
+
+    .visible-sm
+      = fa_icon_link('Login', 'sign-in', new_session_path(:user))
+      = fa_icon_link('Register', 'user-plus', new_registration_path(:user))

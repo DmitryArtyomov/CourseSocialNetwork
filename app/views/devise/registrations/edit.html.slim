@@ -1,17 +1,16 @@
 = bootstrap_devise_error_messages!
-.row
-  .col-sm-6.col-sm-offset-3
-    .panel.panel-default.devise-bs
-      .panel-heading
-        h4
-          = 'Account settings'
-      .panel-body
-        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-          = f.input :email
-          = f.input :password, hint: "(#{t('.leave_blank')})"
-          = f.input :password_confirmation
-          hr
-          = f.input :current_password, hint: "(#{t('.need_current_password')})", required: true
-          = f.button :submit, t('.update'), class: 'btn btn-primary'
+.col-sm-6.col-sm-offset-3
+  .panel.panel-default.devise-bs
+    .panel-heading
+      h4
+        = 'Account settings'
+    .panel-body
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+        = f.input :email
+        = f.input :password, hint: "(#{t('.leave_blank')})"
+        = f.input :password_confirmation
+        hr
+        = f.input :current_password, hint: "(#{t('.need_current_password')})", required: true
+        = f.button :submit, t('.update'), class: 'btn btn-primary'
 
-    = link_to t('.back', default: 'Back'), :back
+  = link_to t('.back', default: 'Back'), :back

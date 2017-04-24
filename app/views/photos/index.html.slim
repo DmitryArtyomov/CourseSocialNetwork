@@ -3,10 +3,17 @@
     .page-block
       = render 'form'
 
-  - if @photos.any?
-    .page-block
+  .page-block
+    - if @photos.any?
+      .header
+        = link_to("#{resource_owner(@profile)} ", profile_path(@profile))
+        span photos
       .row.photo-row
         - @photos.each do |photo|
-          .col-sm-3
+          .col-sm-3.col-xs-6
             = link_to('', profile_photo_path(photo.profile, photo), class: "photo-thumb",
               style: "background-image: url('#{photo.image}');")
+    - else
+      h4.text-center
+        = link_to(@profile.first_name, profile_path(@profile))
+        |  hasn't uploaded any photos yet

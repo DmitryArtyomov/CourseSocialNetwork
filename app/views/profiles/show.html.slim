@@ -12,11 +12,11 @@
     .profile_name = @profile.full_name
     hr
     .row.profile-info
-      .col-sm-4.p-label Date of Birth:
-      .col-sm-8 = @profile.date_of_birth.strftime("%-d %B %Y")
+      .col-xs-4.p-label Date of Birth:
+      .col-xs-8 = @profile.date_of_birth.strftime("%-d %B %Y")
 
-      .col-sm-4.p-label Gender:
-      .col-sm-8 = @profile.translated_gender
+      .col-xs-4.p-label Gender:
+      .col-xs-8 = @profile.translated_gender
 
   - if @profile.photos.any?
     .page-block
@@ -25,6 +25,6 @@
         span.header_count  = " #{@profile.photos.count}"
       .row.row-centered
         - @profile.photos.last(4).reverse.each do |photo|
-          .col-sm-3.profile-photo-col
+          .col-xs-3.profile-photo-col
             = link_to("", profile_photo_path(photo.profile, photo), class: "profile-thumb",
               style: "background-image: url('#{photo.image}');")
