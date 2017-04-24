@@ -1,0 +1,12 @@
+.col-sm-12
+  - if can? :create, @profile.photos.build
+    .page-block
+      = render 'form'
+
+  - if @photos.any?
+    .page-block
+      .row.photo-row
+        - @photos.each do |photo|
+          .col-sm-3
+            = link_to('', profile_photo_path(photo.profile, photo), class: "photo-thumb",
+              style: "background-image: url('#{photo.image}');")

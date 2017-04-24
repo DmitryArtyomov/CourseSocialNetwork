@@ -1,0 +1,86 @@
+@media (min-width: $screen-xs-min)
+  .col-xs-auto
+    width: auto
+
+@media (min-width: $screen-sm-min)
+  .col-sm-auto
+    width: auto
+
+@media (min-width: $screen-md-min)
+  .col-md-auto
+    width: auto
+
+@media (min-width: $screen-lg-min)
+  .col-lg-auto
+    width: auto
+
+.row-centered
+  text-align: center
+
+.col-centered
+  display: inline-block
+  float: none
+  /* reset the text-align */
+  text-align: left
+  /* inline-block space fix */
+  margin-right: -4px
+
+.vert-align
+  display: flex
+  align-items: center
+
+.pl-0
+  padding-left: 0
+
+.pr-0
+  padding-right: 0
+
+.px-0
+  @extend .pl-0
+  @extend .pr-0
+
+.mtop
+  margin-top: 15px
+
+.mbot
+  margin-bottom: 15px
+
+.mt-0
+  margin-top: 0 !important
+
+.mb-0
+  margin-bottom: 0 !important
+
+.w-100
+  width: 100%
+
+.center-block-important
+  display: block
+  margin-left: auto !important
+  margin-right: auto !important
+
+.muted-color
+  color: #828282
+
+.fa
+  @extend .fa-fw
+
+.link-colors
+  a:not(.btn)
+    color: #555
+    text-decoration: none
+    &:hover
+      color: #000
+
+.devise-bs
+  @extend .mtop
+
+.bg-white
+  background: #fff
+
+.hide-overflow
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+  width: 100%
+  display: block

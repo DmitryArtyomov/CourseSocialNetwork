@@ -1,0 +1,46 @@
+body
+  background: #edeef0
+
+.page-block
+  background: #fff
+  border-radius: 2px
+  box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8
+  @extend .mtop
+  padding: 15px
+  @extend .link-colors
+  .header
+    margin-bottom: 0.75em
+    .header_count
+      color: #939393
+      padding: 0 0.25em
+  &:after
+    clear: both
+    content: ""
+    display: block
+
+.menu
+  @extend .list-group
+  @extend .mtop
+  @extend .link-colors
+  span
+    @extend .hidden-sm
+  @media (min-width: $screen-sm-min)
+    margin-bottom: 15px
+  @media (max-width: $screen-xs-max)
+    margin-bottom: 0
+    .list-group-item
+      @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+        padding: 10px 0
+        text-align: center
+
+.left-menu
+  @extend .menu
+  @media (max-width: $screen-xs-max)
+    padding-left: 15px
+
+.right-menu
+  @extend .menu
+  padding-left: 15px
+  padding-right: 0px
+  @media (max-width: $screen-xs-max)
+    padding-right: 15px

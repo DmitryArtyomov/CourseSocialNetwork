@@ -1,0 +1,7 @@
+= error_messages(@photo)
+.col-sm-6.col-sm-offset-3
+  .panel.panel-default.devise-bs
+    .panel-heading
+      h4 = t('.new_photo', default: 'Photo upload')
+    .panel-body
+      = render 'form'

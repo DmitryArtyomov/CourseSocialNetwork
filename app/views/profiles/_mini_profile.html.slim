@@ -1,0 +1,10 @@
+- avatar = profile.avatar ? profile.avatar.image : image_url('no-avatar.png')
+.mini-profile-block(class = "#{classes}")
+  .row.vert-align
+    .col-xs-4.mini-avatar-col
+      div = link_to('', profile_path(profile), class: "mini-avatar",
+        style: "background-image: url('#{avatar}');")
+    .col-xs-8.mini-text-col
+      .hide-overflow
+        = link_to(profile.decorate.full_name, profile_path(profile))
+        .muted-color = date.strftime("%-d %B %Y")

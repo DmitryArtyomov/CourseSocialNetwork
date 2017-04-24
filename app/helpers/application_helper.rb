@@ -22,11 +22,15 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  def current_profile
-    if current_user
-      @current_profile ||= current_user.profile
-    else
-      @current_profile = nil
+  def fa_icon_link(name, icon, options = nil, html_options = {})
+    html_options[:class] ||= 'list-group-item'
+    html_options[:title] ||= name
+    link_to(options, html_options) do
+      if html_options[:text_first]
+        "<span>#{name} </span>".html_safe + fa_icon(icon)
+      else
+        fa_icon(icon) + "<span> #{name}</span>".html_safe
+      end
     end
   end
 end

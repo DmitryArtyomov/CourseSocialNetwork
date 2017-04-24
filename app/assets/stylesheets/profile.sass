@@ -1,26 +1,3 @@
-body
-  background: #edeef0
-
-.page_block
-  background: #fff
-  border-radius: 2px
-  box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8
-  margin: 15px 0 0
-  padding: 15px
-
-.mtop
-  margin: 15px 0 0
-
-
-.devise-bs
-  @extend .mtop
-
-.menu
-  @extend .mtop
-
-.bg-white
-  background: #fff
-
 .profile_name
   font-size: 19px
   line-height: 25px
@@ -35,11 +12,24 @@ body
   line-height: 18px
   color: #939393
 
-.profile_info
-  .p_label
-    color: #828282
-  
+.profile-info
   line-height: 150%
+  .p-label
+    @extend .muted-color
 
-.w-100
-  width: 100%
+.profile-thumb
+  @extend .photo-thumb
+  margin-bottom: 0
+
+.profile-photo-col
+  @extend .col-centered
+
+.mini-profile-block
+  @extend .page-block
+  .mini-avatar-col
+    max-width: 80px
+    .mini-avatar
+      @extend .profile-thumb
+      border-radius: 50%
+  .mini-text-col
+    @extend .pl-0
