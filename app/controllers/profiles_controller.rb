@@ -1,17 +1,16 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update]
+  load_and_authorize_resource
 
   def show
-    @profile = Profile.find(params[:id]).decorate
+    @profile = @profile.decorate
   end
 
   def edit
-    @profile = current_profile.decorate
   end
 
   def update
-    @profile = current_user.profile.decorate
-    if @profile.update_attributes(settings_params)
+    if @profile.update_attributes(profile_params)
       flash[:notice] = "Profile succesfully updated"
       redirect_to profile_path @profile
     else
@@ -21,7 +20,7 @@ class ProfilesController < ApplicationController
 
   private
 
-    def settings_params
-      params.require(:profile).permit(:first_name, :last_name, :gender, :date_of_birth)
-    end
+  def profile_params
+    params.require(:profile).permit(:first_name, :last_name, :gender, :date_of_birth)
+  end
 end

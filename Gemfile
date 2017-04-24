@@ -42,11 +42,12 @@ gem 'translate_enum'
 gem 'simple_form'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
-gem 'devise_lastseenable'
+gem 'devise_lastseenable', :git => 'git://github.com/astonfu/devise_lastseenable.git'
 gem 'font-awesome-rails'
 gem 'fog-aws'
 gem 'carrierwave'
 gem 'draper', '3.0.0.pre1'
+gem 'cancancan'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -1,7 +1,7 @@
 .col-sm-4
   .page-block.page_photo
     - if @profile.avatar
-      = link_to(profile_photo_path(profile_id: @profile, id: @profile.avatar.id))
+      = link_to(profile_photo_path(@profile, @profile.avatar))
         = image_tag(@profile.avatar.image, class: 'img-responsive')
     - else
       = image_tag("no-avatar.png", class: 'img-responsive')
@@ -18,13 +18,13 @@
       .col-sm-4.p-label Gender:
       .col-sm-8 = @profile.translated_gender
 
-  - unless @profile.photos.count.zero?
+  - if @profile.photos.any?
     .page-block
       .header
-        = link_to("#{resource_owner(@profile)} photos", profile_photos_path(profile_id: @profile))
+        = link_to("#{resource_owner(@profile)} photos", profile_photos_path(@profile))
         span.header_count  = " #{@profile.photos.count}"
       .row.row-centered
         - @profile.photos.last(4).reverse.each do |photo|
           .col-sm-3.profile-photo-col
-            = link_to("", profile_photo_path(profile_id: photo.profile, id: photo), class: "profile-thumb",
+            = link_to("", profile_photo_path(photo.profile, photo), class: "profile-thumb",
               style: "background-image: url('#{photo.image}');")
