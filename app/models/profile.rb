@@ -12,6 +12,14 @@
 #  gender        :integer
 #  avatar_id     :integer
 #
+# Indexes
+#
+#  index_profiles_on_avatar_id   (avatar_id)
+#  index_profiles_on_first_name  (first_name)
+#  index_profiles_on_gender      (gender)
+#  index_profiles_on_last_name   (last_name)
+#  index_profiles_on_user_id     (user_id) UNIQUE
+#
 
 class Profile < ApplicationRecord
   include TranslateEnum
@@ -26,4 +34,12 @@ class Profile < ApplicationRecord
 
   has_many :photos
   belongs_to :avatar, class_name: 'Photo', optional: true
+
+  has_many :accepted_outgoing_friend_requests, -> { accepted },   foreign_key: 'sender_id', class_name: 'FriendRequest'
+  has_many :outgoing_friend_requests,          -> { unaccepted }, foreign_key: 'sender_id', class_name: 'FriendRequest'
+
+  has_many :incoming_pending_friend_requests,  -> { pending },  foreign_key: 'recipient_id', class_name: 'FriendRequest'
+  has_many :incoming_declined_friend_requests, -> { declined }, foreign_key: 'recipient_id', class_name: 'FriendRequest'
+
+  has_many :friends, through: :accepted_outgoing_friend_requests, source: :recipient
 end

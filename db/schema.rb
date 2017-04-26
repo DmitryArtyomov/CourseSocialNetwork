@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417113832) do
+ActiveRecord::Schema.define(version: 20170426083219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "friend_requests", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.integer  "status",       default: 0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["recipient_id", "status"], name: "index_friend_requests_on_recipient_id_and_status", using: :btree
+    t.index ["recipient_id"], name: "index_friend_requests_on_recipient_id", using: :btree
+    t.index ["sender_id", "status"], name: "index_friend_requests_on_sender_id_and_status", using: :btree
+    t.index ["sender_id"], name: "index_friend_requests_on_sender_id", using: :btree
+  end
 
   create_table "photos", force: :cascade do |t|
     t.string   "image"
@@ -57,6 +69,8 @@ ActiveRecord::Schema.define(version: 20170417113832) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "friend_requests", "profiles", column: "recipient_id", on_delete: :cascade
+  add_foreign_key "friend_requests", "profiles", column: "sender_id", on_delete: :cascade
   add_foreign_key "photos", "profiles"
   add_foreign_key "profiles", "photos", column: "avatar_id", on_delete: :nullify
   add_foreign_key "profiles", "users"

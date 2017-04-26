@@ -16,6 +16,12 @@
 #  updated_at             :datetime         not null
 #  last_seen              :datetime
 #
+# Indexes
+#
+#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
 
 class User < ApplicationRecord
 
