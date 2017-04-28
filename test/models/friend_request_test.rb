@@ -11,10 +11,11 @@
 #
 # Indexes
 #
-#  index_friend_requests_on_recipient_id             (recipient_id)
-#  index_friend_requests_on_recipient_id_and_status  (recipient_id,status)
-#  index_friend_requests_on_sender_id                (sender_id)
-#  index_friend_requests_on_sender_id_and_status     (sender_id,status)
+#  index_friend_requests_on_recipient_id                (recipient_id)
+#  index_friend_requests_on_recipient_id_and_status     (recipient_id,status)
+#  index_friend_requests_on_sender_id                   (sender_id)
+#  index_friend_requests_on_sender_id_and_recipient_id  (sender_id,recipient_id) UNIQUE
+#  index_friend_requests_on_sender_id_and_status        (sender_id,status)
 #
 
 require 'test_helper'

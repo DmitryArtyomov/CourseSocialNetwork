@@ -11,5 +11,13 @@ Rails.application.routes.draw do
         delete :remove_avatar
       end
     end
+
+    resources :friend_requests, only: [:create, :destroy, :index], path: 'friends' do
+      member do
+        patch :accept
+        patch :decline
+        delete :cancel
+      end
+    end
   end
 end

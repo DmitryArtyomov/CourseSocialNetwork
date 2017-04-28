@@ -1,0 +1,6 @@
+.col-sm-11.col-md-9
+  .page-block
+    - @friends.each do |friend|
+      = render 'friend', profile: friend.decorate
+
+.col-sm-1.col-md-3.right-menu

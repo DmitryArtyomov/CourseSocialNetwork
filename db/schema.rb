@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20170426083219) do
     t.datetime "updated_at",               null: false
     t.index ["recipient_id", "status"], name: "index_friend_requests_on_recipient_id_and_status", using: :btree
     t.index ["recipient_id"], name: "index_friend_requests_on_recipient_id", using: :btree
+    t.index ["sender_id", "recipient_id"], name: "index_friend_requests_on_sender_id_and_recipient_id", unique: true, using: :btree
     t.index ["sender_id", "status"], name: "index_friend_requests_on_sender_id_and_status", using: :btree
     t.index ["sender_id"], name: "index_friend_requests_on_sender_id", using: :btree
   end

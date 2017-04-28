@@ -1,22 +1,27 @@
 .col-sm-4
-  .page-block.page_photo
+  .page-block
     - if @profile.avatar
       = link_to(profile_photo_path(@profile, @profile.avatar))
-        = image_tag(@profile.avatar.image, class: 'img-responsive')
+        = image_tag(@profile.avatar.image, class: 'img-responsive center-block-important')
     - else
-      = image_tag("no-avatar.png", class: 'img-responsive')
+      = image_tag("no-avatar.png", class: 'img-responsive center-block-important')
+
+  - unless current_profile == @profile
+    = render 'friend_requests/friendship_block'
 
 .col-sm-8
   .page-block
     .profile_online = @profile.online_status
     .profile_name = @profile.full_name
     hr
-    .row.profile-info
-      .col-xs-4.p-label Date of Birth:
-      .col-xs-8 = @profile.date_of_birth.strftime("%-d %B %Y")
+    .profile-info
+      .row
+        .col-sm-4.col-xs-5.p-label Date of Birth:
+        .col-sm-8.col-xs-7 = @profile.date_of_birth.strftime("%-d %B %Y")
 
-      .col-xs-4.p-label Gender:
-      .col-xs-8 = @profile.translated_gender
+      .row
+        .col-sm-4.col-xs-5.p-label Gender:
+        .col-sm-8.col-xs-7 = @profile.translated_gender
 
   - if @profile.photos.any?
     .page-block

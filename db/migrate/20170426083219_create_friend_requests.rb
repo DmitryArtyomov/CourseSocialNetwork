@@ -13,5 +13,6 @@ class CreateFriendRequests < ActiveRecord::Migration[5.0]
 
     add_index :friend_requests, [:sender_id, :status]
     add_index :friend_requests, [:recipient_id, :status]
+    add_index :friend_requests, [:sender_id, :recipient_id], unique: true
   end
 end

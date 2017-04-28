@@ -8,4 +8,4 @@
     .col-xs-8.mini-text-col
       .hide-overflow
         = link_to(profile.decorate.full_name, profile_path(profile))
-        .muted-color = date.strftime("%-d %B %Y") if date
+        .muted-color = profile.online_status
