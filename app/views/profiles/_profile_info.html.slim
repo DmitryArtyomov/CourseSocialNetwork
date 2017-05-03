@@ -1,0 +1,17 @@
+- classes ||= nil
+- render_photos ||= nil
+.col-sm-8(class = "#{classes}")
+  .page-block
+    .profile-online = @profile.online_status
+    .profile-name = @profile.full_name
+    hr
+    .profile-info
+      .row
+        .col-sm-4.col-xs-5.p-label Date of Birth:
+        .col-sm-8.col-xs-7 = @profile.date_of_birth.strftime("%-d %B %Y")
+
+      .row
+        .col-sm-4.col-xs-5.p-label Gender:
+        .col-sm-8.col-xs-7 = @profile.translated_gender
+
+  = render 'photos/photos_block' if render_photos

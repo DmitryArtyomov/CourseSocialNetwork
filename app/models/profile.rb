@@ -56,4 +56,18 @@ class Profile < ApplicationRecord
   def friends
     in_friends.union(out_friends).order(:updated_at)
   end
+
+  def accepted_friend_request_with(profile)
+    outgoing_accepted_friend_requests.where(recipient: profile)
+      .union(incoming_accepted_friend_requests.where(sender: profile))[0]
+  end
+
+  def incoming_requests
+    incoming_pending_friend_requests.order(:updated_at)
+      .union(incoming_declined_friend_requests.order(:updated_at))
+  end
+
+  scope :online, -> {
+    joins(:user).merge(User.where("last_seen > ?", Time.now - 10.minutes))
+  }
 end

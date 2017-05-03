@@ -1,0 +1,24 @@
+- if @profile.friends.any?
+  .page-block
+    .header
+      = link_to("#{resource_owner(@profile)} friends", profile_friends_path(@profile))
+      span.count = @profile.friends.count
+    .row.row-centered
+      - @profile.friends.last(3).each do |friend|
+        - avatar = friend.avatar ? friend.avatar.image : image_url('no-avatar.png')
+        .col-xs-4.mini-friend-col
+          = link_to(profile_path(friend)) do
+            = content_tag(:div, '', class: "mini-avatar", style: "background-image: url('#{avatar}');")
+            .mini-friend-name = friend.first_name
+    - if @profile.friends.online.any?
+      hr.full
+      .header
+        = link_to('Online', profile_friends_path(@profile, section: :online))
+        span.count = @profile.friends.online.count
+      .row.row-centered
+        - @profile.friends.online.last(3).each do |friend|
+          - avatar = friend.avatar ? friend.avatar.image : image_url('no-avatar.png')
+          .col-xs-4.mini-friend-col
+            = link_to(profile_path(friend)) do
+              = content_tag(:div, '', class: "mini-avatar", style: "background-image: url('#{avatar}');")
+              .mini-friend-name = friend.first_name

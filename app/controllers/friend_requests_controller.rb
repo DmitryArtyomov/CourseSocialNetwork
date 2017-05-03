@@ -1,10 +1,19 @@
 class FriendRequestsController < ApplicationController
-  before_action :authenticate_user!, only: [:create]
+  before_action :authenticate_user!, only: [:create, :cancel, :destroy, :decline, :accept]
   load_and_authorize_resource :profile
   load_and_authorize_resource through: :profile
 
   def index
-    @friends = @profile.friends
+    authorize! :view_requests, @profile
+    @profile = @profile.decorate
+    @incoming_count = @profile.incoming_unaccepted_friend_requests.count
+    @outgoing_count = @profile.outgoing_unaccepted_friend_requests.count
+    case @section = params[:section]
+    when 'outgoing'
+      @requests = @profile.outgoing_unaccepted_friend_requests.order(updated_at: :desc)
+    else
+      @requests = @profile.incoming_requests
+    end
   end
 
   def create
@@ -15,7 +24,7 @@ class FriendRequestsController < ApplicationController
     else
       flash[:alert] = "Error sending friend request"
     end
-    redirect_to profile_path(@friend_request.recipient)
+    redirect_to request.referrer
   end
 
   def cancel
@@ -24,7 +33,7 @@ class FriendRequestsController < ApplicationController
     else
       flash[:alert] = "Error cancelling friend request"
     end
-    redirect_to profile_path(@friend_request.recipient)
+    redirect_to request.referrer
   end
 
   def destroy
@@ -41,7 +50,7 @@ class FriendRequestsController < ApplicationController
     else
       flash[:alert] = "Error removing friendship"
     end
-    redirect_to profile_path(former_friend)
+    redirect_to request.referrer
   end
 
   def accept
@@ -50,7 +59,7 @@ class FriendRequestsController < ApplicationController
     else
       flash[:alert] = "Error accepting friend request"
     end
-    redirect_to profile_path(@friend_request.sender)
+    redirect_to request.referrer
   end
 
   def decline
@@ -59,7 +68,7 @@ class FriendRequestsController < ApplicationController
     else
       flash[:alert] = "Error declining friend request"
     end
-    redirect_to profile_path(@friend_request.sender)
+    redirect_to request.referrer
   end
 
   private

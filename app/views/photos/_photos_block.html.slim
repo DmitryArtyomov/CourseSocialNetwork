@@ -1,0 +1,10 @@
+- if @profile.photos.any?
+  .page-block
+    .header
+      = link_to("#{resource_owner(@profile)} photos", profile_photos_path(@profile))
+      span.count = @profile.photos.count
+    .row.row-centered
+      - @profile.photos.last(4).reverse.each do |photo|
+        .col-xs-3.profile-photo-col
+          = link_to("", profile_photo_path(photo.profile, photo), class: "profile-thumb",
+            style: "background-image: url('#{photo.image}');")

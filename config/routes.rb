@@ -12,12 +12,14 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :friend_requests, only: [:create, :destroy, :index], path: 'friends' do
+    resources :friend_requests, only: [:create, :destroy, :index], path: 'friend_requests' do
       member do
         patch :accept
         patch :decline
         delete :cancel
       end
     end
+
+    resources :friends, only: [:index]
   end
 end

@@ -1,11 +1,32 @@
 - avatar = profile.avatar ? profile.avatar.image : image_url('no-avatar.png')
 - classes ||= nil
-.mini-profile-block(class = "#{classes}")
-  .row.vert-align
-    .col-xs-4.mini-avatar-col
-      div = link_to('', profile_path(profile), class: "mini-avatar",
-        style: "background-image: url('#{avatar}');")
-    .col-xs-8.mini-text-col
-      .hide-overflow
-        = link_to(profile.decorate.full_name, profile_path(profile))
-        .muted-color = date.strftime("%-d %B %Y") if date
+- date ||= nil
+- text ||= nil
+- as_link ||= nil
+
+- if as_link
+  .mini-profile-block(class = "#{classes}")
+    = link_to(profile_path(profile)) do
+      .row.vert-align
+        .col-xs-4.mini-avatar-col
+          = content_tag(:div, '', class: "mini-avatar", style: "background-image: url('#{avatar}');")
+        .col-xs-8.mini-text-col
+          .hide-overflow
+            div = profile.decorate.full_name
+            - if date
+              .muted-color = date.strftime("%-d %B %Y")
+            - elsif text
+              .muted-color = text
+- else
+  .mini-profile-block(class = "#{classes}")
+    .row.vert-align
+      .col-xs-4.mini-avatar-col
+        div = link_to('', profile_path(profile), class: "mini-avatar",
+          style: "background-image: url('#{avatar}');")
+      .col-xs-8.mini-text-col
+        .hide-overflow
+          = link_to(profile.decorate.full_name, profile_path(profile))
+          - if date
+            .muted-color = date.strftime("%-d %B %Y")
+          - elsif text
+            .muted-color = text

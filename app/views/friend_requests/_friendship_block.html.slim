@@ -1,19 +1,19 @@
-.page-block.text-center
-  - if fr = (current_profile.outgoing_accepted_friend_requests.find_by(recipient: @profile) \
-    || current_profile.incoming_accepted_friend_requests.find_by(sender: @profile))
-    .dropdown
-      button.btn.btn-primary.dropdown-toggle data-toggle="dropdown" type="button"
-        = "#{@profile.first_name} is your friend "
-        span.caret
-      ul.center-dropdown-menu
-        li = link_to('Remove from friends', profile_friend_request_path(fr.sender, fr),
-          method: :delete)
-  - elsif fr = current_profile.outgoing_unaccepted_friend_requests.find_by(recipient: @profile)
-    = button_to('Cancel request', cancel_profile_friend_request_path(current_profile, fr),
-        method: :delete, class: 'btn btn-primary w-100')
-  - elsif fr = current_profile.incoming_unaccepted_friend_requests.find_by(sender: @profile)
-    = button_to('Accept friend request', accept_profile_friend_request_path(@profile, fr),
-        method: :patch, class: 'btn btn-success w-100')
-  - else
-    = button_to('Add friend', profile_friend_requests_path(current_profile),
-        params: { friend_request: { recipient_id: @profile } }, class: 'btn btn-primary w-100')
+- if current_profile
+  .page-block.text-center
+    - if fr = current_profile.accepted_friend_request_with(@profile)
+      .dropdown
+        button.btn.btn-primary.dropdown-toggle data-toggle="dropdown" type="button"
+          = "#{@profile.first_name} is your friend "
+          span.caret
+        ul.center-dropdown-menu
+          li = link_to('Remove from friends', profile_friend_request_path(fr.sender, fr),
+            method: :delete)
+    - elsif fr = current_profile.outgoing_unaccepted_friend_requests.find_by(recipient: @profile)
+      = button_to('Cancel request', cancel_profile_friend_request_path(current_profile, fr),
+          method: :delete, class: 'btn btn-primary w-100')
+    - elsif fr = current_profile.incoming_unaccepted_friend_requests.find_by(sender: @profile)
+      = button_to('Accept friend request', accept_profile_friend_request_path(@profile, fr),
+          method: :patch, class: 'btn btn-success w-100')
+    - else
+      = button_to('Add friend', profile_friend_requests_path(current_profile),
+          params: { friend_request: { recipient_id: @profile } }, class: 'btn btn-primary w-100')

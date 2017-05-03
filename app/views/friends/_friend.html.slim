@@ -1,0 +1,22 @@
+- avatar = friend_profile.avatar ? friend_profile.avatar.image : image_url('no-avatar.png')
+- classes ||= nil
+.mini-profile-block(class = "#{classes}")
+  .row.vert-align
+    .col-xs-4.mini-avatar-col
+      div = link_to('', profile_path(friend_profile), class: "mini-avatar",
+        style: "background-image: url('#{avatar}');")
+    .col-xs-8.col-sm-5.mini-text-col.pr-0
+      .hide-overflow
+        = link_to(friend_profile.full_name, profile_path(friend_profile))
+        .muted-color.hide-overflow = friend_profile.online_status
+    - if @profile.current?
+      .col-sm-3.col-sm-auto.right-block.text-right.pl-0.hidden-xs
+        - if fr = current_profile.accepted_friend_request_with(friend_profile)
+          = link_to('Remove', profile_friend_request_path(fr.sender, fr),
+            method: :delete, class: 'btn btn-primary')
+  - if @profile.current?
+    .row.mtop.visible-xs.row-centered
+      .col-xs-auto.col-centered
+          - if fr = current_profile.accepted_friend_request_with(friend_profile)
+            = link_to('Remove', profile_friend_request_path(fr.sender, fr),
+              method: :delete, class: 'btn btn-primary')

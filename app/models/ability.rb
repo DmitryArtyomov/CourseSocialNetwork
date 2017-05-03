@@ -2,7 +2,6 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    p user.profile
     user ||= User.new
     if user.id
       can [:update], Profile, user_id: user.id
@@ -20,6 +19,8 @@ class Ability
       end
       can :index,   FriendRequest, recipient: { user_id: user.id }
       can :index,   FriendRequest, sender:    { user_id: user.id }
+
+      can :view_requests, Profile, user_id: user.id
     end
     can :read, [Profile, Photo]
     can :index, FriendRequest, status: 1

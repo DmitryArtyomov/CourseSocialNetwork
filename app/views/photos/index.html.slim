@@ -8,6 +8,7 @@
       .header
         = link_to("#{resource_owner(@profile)} ", profile_path(@profile))
         span photos
+        span.count = @photos.count
       .row.photo-row
         - @photos.each do |photo|
           .col-sm-3.col-xs-6

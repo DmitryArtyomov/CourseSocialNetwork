@@ -1,3 +1,5 @@
+= render 'profile_info', classes: 'visible-xs'
+
 .col-sm-4
   .page-block
     - if @profile.avatar
@@ -6,30 +8,12 @@
     - else
       = image_tag("no-avatar.png", class: 'img-responsive center-block-important')
 
-  - unless current_profile == @profile
+  - unless @profile.current?
     = render 'friend_requests/friendship_block'
 
-.col-sm-8
-  .page-block
-    .profile_online = @profile.online_status
-    .profile_name = @profile.full_name
-    hr
-    .profile-info
-      .row
-        .col-sm-4.col-xs-5.p-label Date of Birth:
-        .col-sm-8.col-xs-7 = @profile.date_of_birth.strftime("%-d %B %Y")
+  = render 'friends/friends_block'
 
-      .row
-        .col-sm-4.col-xs-5.p-label Gender:
-        .col-sm-8.col-xs-7 = @profile.translated_gender
+= render 'profile_info', classes: 'hidden-xs', render_photos: true
 
-  - if @profile.photos.any?
-    .page-block
-      .header
-        = link_to("#{resource_owner(@profile)} photos", profile_photos_path(@profile))
-        span.header_count  = " #{@profile.photos.count}"
-      .row.row-centered
-        - @profile.photos.last(4).reverse.each do |photo|
-          .col-xs-3.profile-photo-col
-            = link_to("", profile_photo_path(photo.profile, photo), class: "profile-thumb",
-              style: "background-image: url('#{photo.image}');")
+.col-xs-12.visible-xs
+  = render 'photos/photos_block'
