@@ -22,14 +22,23 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  def fa_icon_link(name, icon, options = nil, html_options = {})
+  def fa_icon_link(name, icon, url = nil, html_options = {})
     html_options[:class] ||= 'list-group-item'
     html_options[:title] ||= name
-    link_to(options, html_options) do
+    if (badge_count = html_options[:badge_count]) && badge_count > 0
+      badge = <<-BADGE
+      <span class='badge'>#{badge_count}</span>
+      <div class='visible-sm'>
+        <div class='badge'>#{badge_count}</div>
+      </div>
+      BADGE
+      url = html_options[:badge_url]
+    end
+    link_to(url, html_options) do
       if html_options[:text_first]
-        "<span>#{name} </span>".html_safe + fa_icon(icon)
+        "<span>#{name} </span>".html_safe + fa_icon(icon) + "#{badge}".html_safe
       else
-        fa_icon(icon) + "<span> #{name}</span>".html_safe
+        fa_icon(icon) + "<span> #{name}</span>#{badge}".html_safe
       end
     end
   end

@@ -1,11 +1,11 @@
-.profile_name
+.profile-name
   font-size: 19px
   line-height: 25px
   margin: -1px 0
   overflow: hidden
   text-overflow: ellipsis
 
-.profile_online
+.profile-online
   float: right
   font-size: 12.5px
   margin-top: 5px
@@ -26,10 +26,18 @@
 
 .mini-profile-block
   @extend .page-block
-  .mini-avatar-col
-    max-width: 80px
-    .mini-avatar
-      @extend .profile-thumb
-      border-radius: 50%
-  .mini-text-col
-    @extend .pl-0
+.mini-text-col
+  @extend .pl-0
+.mini-avatar-col
+  max-width: 100px
+.mini-avatar
+  @extend .profile-thumb
+  border-radius: 50%
+
+.mini-friend-col
+  @extend .profile-photo-col
+  @extend .mini-avatar-col
+  .mini-friend-name
+    @extend .mt-025
+    @extend .text-center
+    margin: 0 -15px

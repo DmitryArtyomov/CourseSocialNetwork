@@ -1,0 +1,22 @@
+- @section = 'incoming' unless @section.in? %w(outgoing)
+
+= render 'friends/friends_right_menu', classes: 'visible-xs'
+
+.col-sm-11.col-md-9
+  .page-block
+    ul.nav.nav-tabs
+      li class=("active" if @section == 'incoming')
+        = link_to(profile_friend_requests_path(@profile, section: :incoming)) do
+          = 'Incoming'
+          span.count = @incoming_count
+      li class=("active" if @section == 'outgoing')
+        = link_to(profile_friend_requests_path(@profile, section: :outgoing)) do
+          = 'Outgoing'
+          span.count = @outgoing_count
+    - if @requests.empty?
+      h4.text-center.mtop = "You don't have #{@section} friend requests"
+    - else
+      - @requests.each do |request|
+        = render 'friend_request', request: request
+
+= render 'friends/friends_right_menu', classes: 'hidden-xs'

@@ -28,7 +28,7 @@ class PhotosController < ApplicationController
       @photo.image.remove!
       flash[:notice] = "Photo was succesfully deleted"
     else
-      flash[:error] = "Error deleting photo"
+      flash[:alert] = "Error deleting photo"
     end
     redirect_to profile_photos_path(@profile)
   end
@@ -38,7 +38,7 @@ class PhotosController < ApplicationController
     if @profile.save
       flash[:notice] = "Avatar was succesfully removed"
     else
-      flash[:error] = "Error removing avatar"
+      flash[:alert] = "Error removing avatar"
     end
     redirect_to profile_path(@profile)
   end
@@ -48,7 +48,7 @@ class PhotosController < ApplicationController
     if @profile.save
       flash[:notice] = "Avatar was succesfully set"
     else
-      flash[:error] = "Error setting avatar"
+      flash[:alert] = "Error setting avatar"
     end
     redirect_to profile_path(@profile)
   end

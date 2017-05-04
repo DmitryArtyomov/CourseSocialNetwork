@@ -8,6 +8,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_photos_on_profile_id  (profile_id)
+#
 
 class Photo < ApplicationRecord
   belongs_to :profile

@@ -10,13 +10,15 @@ body
   @extend .link-colors
   .header
     margin-bottom: 0.75em
-    .header_count
-      color: #939393
-      padding: 0 0.25em
+  .count
+    color: #939393
+    padding-left: 0.5em
   &:after
     clear: both
     content: ""
     display: block
+  hr.full
+    margin: 10px -15px
 
 .menu
   @extend .list-group
@@ -24,6 +26,9 @@ body
   @extend .link-colors
   span
     @extend .hidden-sm
+    &.badge
+      @extend .badge
+      margin-top: 0.1em
   @media (min-width: $screen-sm-min)
     margin-bottom: 15px
   @media (max-width: $screen-xs-max)
@@ -44,3 +49,10 @@ body
   padding-right: 0px
   @media (max-width: $screen-xs-max)
     padding-right: 15px
+
+.center-dropdown-menu
+  @extend .dropdown-menu
+  left: 50%
+  right: auto
+  text-align: center
+  transform: translate(-50%, 0)

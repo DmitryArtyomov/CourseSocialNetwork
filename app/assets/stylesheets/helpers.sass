@@ -1,18 +1,18 @@
 @media (min-width: $screen-xs-min)
   .col-xs-auto
-    width: auto
+    width: auto !important
 
 @media (min-width: $screen-sm-min)
   .col-sm-auto
-    width: auto
+    width: auto !important
 
 @media (min-width: $screen-md-min)
   .col-md-auto
-    width: auto
+    width: auto !important
 
 @media (min-width: $screen-lg-min)
   .col-lg-auto
-    width: auto
+    width: auto !important
 
 .row-centered
   text-align: center
@@ -39,8 +39,14 @@
   @extend .pl-0
   @extend .pr-0
 
+.ml-1
+  margin-left: 1em
+
 .mtop
   margin-top: 15px
+
+.mt-025
+  margin-top: 0.25em
 
 .mbot
   margin-bottom: 15px
@@ -58,6 +64,11 @@
   display: block
   margin-left: auto !important
   margin-right: auto !important
+
+.right-block
+  display: block
+  margin-left: auto !important
+  margin-right: 0 !important
 
 .muted-color
   color: #828282

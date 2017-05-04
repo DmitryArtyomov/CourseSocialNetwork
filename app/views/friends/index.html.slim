@@ -1,0 +1,30 @@
+- @section = 'all' unless @section.in? %w(online)
+
+= render 'friends_right_menu', classes: 'visible-xs' do
+  = render 'profiles/mini_profile', profile: @profile, as_link: true,
+    classes: 'mbot', text: 'Back to page' unless @profile.current?
+
+.col-sm-11.col-md-9
+  = render 'profiles/mini_profile', profile: @profile, as_link: true,
+    classes: 'visible-sm', text: 'Back to page' unless @profile.current?
+
+  .page-block
+    ul.nav.nav-tabs
+      li class=("active" if @section == 'all')
+        = link_to(profile_friends_path(@profile, section: :all)) do
+          = 'All friends'
+          span.count = @all_count
+      li class=("active" if @section == 'online')
+        = link_to(profile_friends_path(@profile, section: :online))
+          = 'Online'
+          span.count = @online_count
+    - if @friends.empty?
+      h4.text-center.mtop
+        = @section == 'online' ? 'Noone of your friends is online' : "You haven't added any friends yet"
+    - else
+      - @friends.each do |friend|
+        = render 'friend', friend_profile: friend.decorate
+
+= render 'friends_right_menu', classes: 'hidden-xs' do
+  = render 'profiles/mini_profile', profile: @profile, as_link: true,
+    classes: 'mt-0 mbot hidden-sm', text: 'Back to page' unless @profile.current?

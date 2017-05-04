@@ -1,0 +1,8 @@
+- classes ||= nil
+.col-sm-1.col-md-3.right-menu(class = "#{classes}")
+  = yield
+  .list-group
+    = fa_icon_link("#{resource_owner(@profile)} friends", 'users', profile_friends_path(@profile, section: :all))
+
+    - if can? :view_requests, @profile.object
+      = fa_icon_link("Friend requests", 'user-plus', profile_friend_requests_path(@profile, section: :incoming))

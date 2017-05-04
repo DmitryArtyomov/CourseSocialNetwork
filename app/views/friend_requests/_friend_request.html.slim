@@ -1,0 +1,33 @@
+- friend_profile = (request.sender.decorate.current? ? request.recipient : request.sender).decorate
+- avatar = friend_profile.avatar ? friend_profile.avatar.image : image_url('no-avatar.png')
+- classes ||= nil
+.mini-profile-block(class = "#{classes}")
+  .row.vert-align
+    .col-xs-4.mini-avatar-col
+      div = link_to('', profile_path(friend_profile), class: "mini-avatar",
+        style: "background-image: url('#{avatar}');")
+    .col-xs-8.col-sm-5.mini-text-col.pr-0
+      .hide-overflow
+        = link_to(friend_profile.full_name, profile_path(friend_profile))
+        .muted-color.hide-overflow = friend_profile.online_status
+    .col-sm-3.col-sm-auto.right-block.text-right.pl-0.hidden-xs
+      - if request.sender.decorate.current?
+        = link_to('Cancel', cancel_profile_friend_request_path(current_profile, request),
+            method: :delete, class: 'btn btn-primary')
+      - else
+        = link_to('Accept', accept_profile_friend_request_path(friend_profile, request),
+            method: :patch, class: 'btn btn-success')
+        - if request.pending?
+          = link_to('Ignore', decline_profile_friend_request_path(friend_profile, request),
+            method: :patch, class: 'btn btn-warning ml-1')
+  .row.mtop.visible-xs.row-centered
+    .col-xs-auto.col-centered
+      - if request.sender.decorate.current?
+        = link_to('Cancel', cancel_profile_friend_request_path(current_profile, request),
+            method: :delete, class: 'btn btn-primary')
+      - else
+        = link_to('Accept', accept_profile_friend_request_path(friend_profile, request),
+            method: :patch, class: 'btn btn-success')
+        - if request.pending?
+          = link_to('Ignore', decline_profile_friend_request_path(friend_profile, request),
+            method: :patch, class: 'btn btn-warning ml-1')
