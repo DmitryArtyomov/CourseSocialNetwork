@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  resource :search, only: [:index]
   get 'search', to: 'search#index'
 
   resources :profiles, only: [:show, :update, :edit], path: '/' do
