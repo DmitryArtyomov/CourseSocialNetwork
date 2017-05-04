@@ -2,8 +2,9 @@
 - render_photos ||= nil
 .col-sm-8(class = "#{classes}")
   .page-block
-    .profile-online = @profile.online_status
-    .profile-name = @profile.full_name
+    div
+      .profile-online = @profile.online_status
+      .profile-name = @profile.full_name
     hr
     .profile-info
       .row
