@@ -23,6 +23,7 @@
 
 class Profile < ApplicationRecord
   include TranslateEnum
+  include PgSearch
 
   belongs_to :user, optional: true
 
@@ -70,4 +71,6 @@ class Profile < ApplicationRecord
   scope :online, -> {
     joins(:user).merge(User.where("last_seen > ?", Time.now - 10.minutes))
   }
+
+  pg_search_scope :search_by_full_name, against: [:first_name, :last_name], using: { tsearch: { prefix: true } }
 end

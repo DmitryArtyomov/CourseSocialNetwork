@@ -9,7 +9,7 @@ nav.navbar.navbar-default.bg-white
           span.icon-bar
         = link_to 'SiT', root_path, class: "navbar-brand"
       #nav-collapse.collapse.navbar-collapse
-        ul.nav.navbar-nav.navbar-right
+        .nav.navbar-nav.navbar-right
           - unless user_signed_in?
             li
               = link_to(t('devise.shared.links.sign_up'), new_registration_path(:user))
@@ -29,3 +29,10 @@ nav.navbar.navbar-default.bg-white
                 li.divider role="separator"
                 li
                   = link_to(t('devise.shared.links.logout'), destroy_user_session_path, :method => :delete)
+        = form_tag(search_path, method: "get", class: "navbar-form") do
+          .input-group
+            = text_field_tag(:q, nil, class: "form-control", placeholder: "Search")
+            span.input-group-btn
+              button.btn.btn-default type="submit"
+                span.glyphicon.glyphicon-search aria-hidden="true"
+/ width: calc(100% - 100px);

@@ -1,5 +1,5 @@
 class FriendRequestsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :cancel, :destroy, :decline, :accept]
+  before_action :authenticate_user!
   load_and_authorize_resource :profile
   load_and_authorize_resource through: :profile
 

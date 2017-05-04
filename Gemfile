@@ -48,6 +48,7 @@ gem 'carrierwave'
 gem 'draper', '3.0.0.pre1'
 gem 'cancancan'
 gem 'active_record_union'
+gem 'pg_search'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
