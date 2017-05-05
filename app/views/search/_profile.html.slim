@@ -12,7 +12,7 @@
     - if current_profile && !profile.current?
       .col-xs-3.col-sm-auto.right-block.text-right.pl-0
         - if fr = current_profile.accepted_friend_request_with(profile)
-          = link_to('Remove', profile_friend_request_path(fr.sender, fr), method: :delete, class: 'btn btn-primary')
+          = link_to('Remove', profile_friend_request_path(fr.sender_id, fr), method: :delete, class: 'btn btn-primary')
         - elsif fr = current_profile.out_unaccepted_request_with(profile)
           = link_to('Cancel', cancel_profile_friend_request_path(current_profile, fr),
               method: :delete, class: 'btn btn-primary')
