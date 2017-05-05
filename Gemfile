@@ -48,6 +48,7 @@ gem 'carrierwave'
 gem 'draper', '3.0.0.pre1'
 gem 'cancancan'
 gem 'active_record_union'
+gem 'pg_search'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -68,6 +69,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'annotate'
+  gem 'bullet'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

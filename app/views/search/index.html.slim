@@ -1,0 +1,10 @@
+.col-sm-12
+  .page-block
+    .header
+      | Search results
+      span.count = @profiles.count
+    - if @profiles.empty?
+      h4.text-center.mtop = 'No profiles were found'
+    - else
+      - @profiles.each do |profile|
+        = render 'profile', profile: profile.decorate
