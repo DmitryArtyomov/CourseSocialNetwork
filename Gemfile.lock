@@ -67,6 +67,9 @@ GEM
     bootstrap3-datetimepicker-rails (4.17.47)
       momentjs-rails (>= 2.8.1)
     builder (3.2.3)
+    bullet (5.5.1)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     byebug (9.0.6)
     cancancan (1.16.0)
     carrierwave (1.0.0)
@@ -158,6 +161,10 @@ GEM
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
     pg (0.20.0)
+    pg_search (2.0.1)
+      activerecord (>= 4.2)
+      activesupport (>= 4.2)
+      arel (>= 6)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -241,6 +248,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.1.13)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.10.0)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.5.0)
@@ -260,6 +268,7 @@ DEPENDENCIES
   annotate
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 4.17.47)
+  bullet
   byebug
   cancancan
   carrierwave
@@ -277,6 +286,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   momentjs-rails (>= 2.9.0)
   pg (~> 0.18)
+  pg_search
   pry-rails
   puma (~> 3.0)
   rails (~> 5.0.2)

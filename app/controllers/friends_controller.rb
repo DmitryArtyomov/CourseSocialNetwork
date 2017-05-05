@@ -3,12 +3,13 @@ class FriendsController < ApplicationController
 
   def index
     @profile = @profile.decorate
-    @friends = @profile.friends
-    @all_count = @friends.count
-    @online_count = @friends.online.count
+    @all_count = @profile.friends.count
+    @online_count = @profile.friends.online.count
     case @section = params[:section]
     when 'online'
-      @friends = @friends.online
+      @friends = @profile.friends.online.includes(:user, :avatar)
+    else
+      @friends = @profile.friends.includes(:user, :avatar)
     end
   end
 end

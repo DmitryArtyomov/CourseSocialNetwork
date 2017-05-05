@@ -9,14 +9,14 @@
       .hide-overflow
         = link_to(friend_profile.full_name, profile_path(friend_profile))
         .muted-color.hide-overflow = friend_profile.online_status
-    - if @profile.current?
+    - if @profile && @profile.current?
       .col-sm-3.col-sm-auto.right-block.text-right.pl-0.hidden-xs
         - if fr = current_profile.accepted_friend_request_with(friend_profile)
-          = link_to('Remove', profile_friend_request_path(fr.sender, fr),
+          = link_to('Remove', profile_friend_request_path(fr.sender_id, fr),
             method: :delete, class: 'btn btn-primary')
-  - if @profile.current?
+  - if @profile && @profile.current?
     .row.mtop.visible-xs.row-centered
       .col-xs-auto.col-centered
           - if fr = current_profile.accepted_friend_request_with(friend_profile)
-            = link_to('Remove', profile_friend_request_path(fr.sender, fr),
+            = link_to('Remove', profile_friend_request_path(fr.sender_id, fr),
               method: :delete, class: 'btn btn-primary')

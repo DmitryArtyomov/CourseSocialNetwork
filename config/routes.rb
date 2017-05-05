@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
+  get 'search', to: 'search#index'
+
   resources :profiles, only: [:show, :update, :edit], path: '/' do
     resources :photos, except: [:update] do
       member do
