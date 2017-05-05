@@ -10,9 +10,10 @@ class FriendRequestsController < ApplicationController
     @outgoing_count = @profile.outgoing_unaccepted_friend_requests.count
     case @section = params[:section]
     when 'outgoing'
-      @requests = @profile.outgoing_unaccepted_friend_requests.order(updated_at: :desc)
+      @requests = @profile.outgoing_unaccepted_friend_requests.includes(recipient: [ :user, :avatar ])
+        .order(updated_at: :desc)
     else
-      @requests = @profile.incoming_requests
+      @requests = @profile.incoming_requests.includes(sender: [ :user, :avatar ])
     end
   end
 

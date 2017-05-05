@@ -18,7 +18,7 @@
         = link_to(profile_friends_path(@profile, section: :online))
           = 'Online'
           span.count = @online_count
-    - if @friends.empty?
+    - if @friends.length.zero?
       h4.text-center.mtop
         = @section == 'online' ? 'Noone of your friends is online' : "You haven't added any friends yet"
     - else

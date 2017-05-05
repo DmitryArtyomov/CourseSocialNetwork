@@ -59,8 +59,18 @@ class Profile < ApplicationRecord
   end
 
   def accepted_friend_request_with(profile)
-    outgoing_accepted_friend_requests.where(recipient: profile)
-      .union(incoming_accepted_friend_requests.where(sender: profile))[0]
+    (
+      [ outgoing_accepted_friend_requests.find { |fr| fr.recipient_id == profile.id } ] <<
+      incoming_accepted_friend_requests.find { |fr| fr.sender_id == profile.id }
+    ).compact.first
+  end
+
+  def out_unaccepted_request_with(profile)
+    outgoing_unaccepted_friend_requests.find{ |req| req.recipient_id == profile.id }
+  end
+
+  def in_unaccepted_request_with(profile)
+    incoming_unaccepted_friend_requests.find{ |req| req.sender_id == profile.id }
   end
 
   def incoming_requests
