@@ -6,7 +6,7 @@
           = "#{@profile.first_name} is your friend "
           span.caret
         ul.center-dropdown-menu
-          li = link_to('Remove from friends', profile_friend_request_path(fr.sender, fr),
+          li = link_to('Remove from friends', profile_friend_request_path(fr.sender_id, fr),
             method: :delete)
     - elsif fr = @out_unaccepted_request
       = button_to('Cancel request', cancel_profile_friend_request_path(current_profile, fr),
