@@ -1,0 +1,55 @@
+.mini-conversation-block
+  .hide-overflow
+    @extend .hide-overflow
+    width: auto
+  @extend .page-block
+  .last-message-text
+    @extend .hide-overflow
+    @extend .muted-color
+  .last-message-time
+    @extend .muted-color
+    @extend .pull-right
+  .unread-count
+    @extend .pull-right
+    @extend .badge
+  .conversation-name
+    @extend .hide-overflow
+
+  .mini-text-col
+    @extend .mini-text-col
+    width: 100%
+
+  &:hover, &.active
+    background-color: lightgray
+
+.messages-block
+  @extend .page-block
+  @extend .mtop
+  overflow-x: hidden
+  overflow-y: auto
+  position: relative
+
+  .message
+    margin-bottom: 0.75em
+
+    .unread
+      background-color: lightgray
+      border-radius: 2px
+
+    .message-avatar-col
+      max-width: 80px
+
+    .message-text-col
+      @extend .pl-0
+      width: 100%
+
+      .message-text
+        white-space: pre-wrap
+        overflow-wrap: break-word
+
+    &.concurrent
+      margin-top: -5px
+
+.message-form-block
+  @extend .page-block
+  @extend .mt-0

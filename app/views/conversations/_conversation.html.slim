@@ -1,0 +1,16 @@
+- profiles = conversation.profiles.without(@profile)
+- avatar = profiles.first.avatar ? profiles.first.avatar.image : image_url('no-avatar.png')
+- last_message = conversation.messages.last
+- unread_count = conversation.unread_messages_count(@profile)
+.mini-conversation-block.mt-0(class = "#{'active' if @conversation == conversation}"
+  id = "conversation-#{conversation.id}")
+  = link_to(profile_conversation_path(@profile, conversation.id)) do
+    .row.vert-align
+      .col-xs-3.mini-avatar-col
+        = content_tag(:div, '', class: "mini-avatar", style: "background-image: url('#{avatar}');")
+      .col-xs-9.mini-text-col
+        .last-message-time = short_time(conversation.updated_at)
+        .conversation-name = profiles.map{ |p| p.decorate.full_name }.join(', ')
+
+        .unread-count = unread_count unless unread_count.zero?
+        .last-message-text = "#{resource_owner(last_message.sender, 'You')}: #{last_message.text}"

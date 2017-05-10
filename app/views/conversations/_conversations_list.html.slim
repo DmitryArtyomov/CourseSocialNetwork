@@ -1,0 +1,5 @@
+.col-sm-4
+  .mtop
+    - if @conversations
+      - @conversations.each do |conversation|
+        = render 'conversation', conversation: conversation

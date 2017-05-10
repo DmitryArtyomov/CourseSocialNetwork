@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426083219) do
+ActiveRecord::Schema.define(version: 20170508090737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "conversations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conversations_profiles", id: false, force: :cascade do |t|
+    t.integer "profile_id",      null: false
+    t.integer "conversation_id", null: false
+    t.index ["conversation_id", "profile_id"], name: "index_conversations_profiles_on_conversation_id_and_profile_id", using: :btree
+    t.index ["profile_id", "conversation_id"], name: "index_conversations_profiles_on_profile_id_and_conversation_id", using: :btree
+  end
 
   create_table "friend_requests", force: :cascade do |t|
     t.integer  "sender_id"
@@ -26,6 +38,17 @@ ActiveRecord::Schema.define(version: 20170426083219) do
     t.index ["sender_id", "recipient_id"], name: "index_friend_requests_on_sender_id_and_recipient_id", unique: true, using: :btree
     t.index ["sender_id", "status"], name: "index_friend_requests_on_sender_id_and_status", using: :btree
     t.index ["sender_id"], name: "index_friend_requests_on_sender_id", using: :btree
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "text"
+    t.boolean  "is_read",         default: false
+    t.integer  "sender_id"
+    t.integer  "conversation_id"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+    t.index ["sender_id"], name: "index_messages_on_sender_id", using: :btree
   end
 
   create_table "photos", force: :cascade do |t|
@@ -72,6 +95,7 @@ ActiveRecord::Schema.define(version: 20170426083219) do
 
   add_foreign_key "friend_requests", "profiles", column: "recipient_id", on_delete: :cascade
   add_foreign_key "friend_requests", "profiles", column: "sender_id", on_delete: :cascade
+  add_foreign_key "messages", "profiles", column: "sender_id"
   add_foreign_key "photos", "profiles"
   add_foreign_key "profiles", "photos", column: "avatar_id", on_delete: :nullify
   add_foreign_key "profiles", "users"

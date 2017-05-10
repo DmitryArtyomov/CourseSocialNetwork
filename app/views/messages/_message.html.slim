@@ -1,0 +1,16 @@
+- profile = message.sender
+- avatar = profile.avatar ? profile.avatar.image : image_url('no-avatar.png')
+- concurrent_message ||= false
+.message(class = "#{'concurrent' if concurrent_message}")
+  .row.vert-align(class = "#{'unread' unless message.is_read?}")
+    .col-xs-2.message-avatar-col
+      - unless concurrent_message
+        div = link_to('', profile_path(profile), class: "mini-avatar",
+          style: "background-image: url('#{avatar}');")
+    .col-xs-10.message-text-col
+      .hide-overflow
+        - unless concurrent_message
+          = link_to(profile.first_name, profile_path(profile))
+        div
+          .muted-color.pull-right = full_time(message.created_at)
+          .message-text = message.text

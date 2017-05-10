@@ -6,3 +6,4 @@
 #= require bootstrap-datetimepicker
 #= require date_time_picker
 #= require navbar_brand
+#= require messages_block

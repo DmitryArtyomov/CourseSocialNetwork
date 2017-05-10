@@ -1,0 +1,5 @@
+| $("#{escape_javascript(render 'message', message: @message, concurrent_message: @message.decorate.concurrent?(@prev_message))}").appendTo(".messages-block");
+| $('#message_text').val('');
+| $('.mini-conversation-block.active .last-message-text').text("#{resource_owner(@message.sender, 'You')}: #{@message.text}");
+| $('.mini-conversation-block.active .last-message-time').text("#{short_time(@message.created_at)}");
+| $('.messages-block').scrollTop($('.messages-block')[0].scrollHeight)

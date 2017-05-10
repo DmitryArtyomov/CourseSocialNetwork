@@ -32,7 +32,7 @@ module ApplicationHelper
         <div class='badge'>#{badge_count}</div>
       </div>
       BADGE
-      url = html_options[:badge_url]
+      url = html_options[:badge_url] if html_options[:badge_url]
     end
     link_to(url, html_options) do
       if html_options[:text_first]
@@ -40,6 +40,26 @@ module ApplicationHelper
       else
         fa_icon(icon) + "<span> #{name}</span>#{badge}".html_safe
       end
+    end
+  end
+
+  def short_time(datetime)
+    datetime = datetime.localtime
+    if datetime.today?
+      datetime.strftime "%H:%M"
+    elsif datetime.to_date == Date.yesterday
+      "yesterday"
+    else
+      datetime.strftime "%-d %B"
+    end
+  end
+
+  def full_time(datetime)
+    datetime = datetime.localtime
+    if datetime.today?
+      datetime.strftime "%H:%M"
+    else
+      datetime.strftime "%-d %B %H:%M"
     end
   end
 end
