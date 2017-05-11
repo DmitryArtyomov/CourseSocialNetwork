@@ -1,6 +1,6 @@
 = render 'conversations_list'
 .col-sm-8
-  .messages-block
+  .messages-block(id = "#{ @conversation.id }")
     - if @messages
       - prev_message = nil
       - @messages.each do |message|

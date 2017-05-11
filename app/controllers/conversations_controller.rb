@@ -5,7 +5,7 @@ class ConversationsController < ApplicationController
 
   def index
     authorize! :view_conversations, @profile
-    @conversations = @profile.conversations.includes(profiles: :avatar)
+    @conversations = @profile.conversations.includes(profiles: :avatar).order(updated_at: :desc)
   end
 
   def show
