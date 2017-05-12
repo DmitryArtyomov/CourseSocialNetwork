@@ -1,4 +1,1 @@
 | $('#message_text').val('');
-/ | $("#conversation-#{@message.conversation_id} .last-message-text").text("#{resource_owner(@message.sender, 'You')}: #{@message.text}");
-/ | $("#conversation-#{@message.conversation_id} .last-message-time").text("#{short_time(@message.created_at)}");
-/ | $('.messages-block').scrollTop($('.messages-block')[0].scrollHeight)

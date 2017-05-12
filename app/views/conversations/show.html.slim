@@ -4,7 +4,7 @@
     - if @messages
       - prev_message = nil
       - @messages.each do |message|
-        = render 'messages/message', message: message, concurrent_message: message.decorate.concurrent?(prev_message)
+        = render 'messages/message', message: message, is_concurrent: message.decorate.concurrent?(prev_message)
         - prev_message = message
 
   .message-form-block

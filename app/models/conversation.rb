@@ -14,4 +14,7 @@ class Conversation < ApplicationRecord
   def unread_messages_count(profile)
     messages.unread_incoming(profile).count
   end
+
+  scope :nonempty, -> { includes(:messages).where.not(messages: {conversation_id: nil}) }
+  scope :unread, -> (profile) { joins(:messages).merge(Message.unread_incoming(profile)) }
 end

@@ -1,6 +1,6 @@
 - profiles = conversation.profiles.without(@profile)
 - avatar = profiles.first.avatar ? profiles.first.avatar.image : image_url('no-avatar.png')
-- last_message = conversation.messages.last
+- last_message = conversation.messages.order(created_at: :desc).first
 - unread_count = conversation.unread_messages_count(@profile)
 .mini-conversation-block.mt-0(class = "#{'active' if @conversation == conversation}"
   id = "conversation-#{conversation.id}")

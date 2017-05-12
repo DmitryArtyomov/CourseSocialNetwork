@@ -1,7 +1,10 @@
 .col-sm-1.col-md-2.left-menu
   - if user_signed_in?
     = fa_icon_link('My profile', 'home', profile_path(current_profile))
-    = fa_icon_link('Messages', 'envelope', profile_conversations_path(current_profile))
+    = fa_icon_link('Messages', 'envelope', profile_conversations_path(current_profile),
+      badge_count: current_profile.conversations.unread(current_profile).count,
+      id: 'messages_menu',
+      data: { ids: current_profile.conversations.unread(current_profile).ids, my_profile_id: current_profile.id })
     = fa_icon_link('Friends', 'users', profile_friends_path(current_profile),
       badge_count: current_profile.incoming_pending_friend_requests.count,
       badge_url: profile_friend_requests_path(current_profile, section: :incoming))

@@ -10,6 +10,7 @@ class MessagesController < ApplicationController
     if @message.save
       @conversation.touch
       broadcast_message
+      broadcast_conversation
       respond_to do |format|
         format.html { redirect_to profile_conversation_path(@profile, @conversation), notice: 'Message successfully sent.' }
         format.js   { }
@@ -24,11 +25,26 @@ class MessagesController < ApplicationController
   end
 
   def broadcast_message
-    concurrent_message = @message.decorate
-      .concurrent?(@conversation.messages.order(created_at: :desc).offset(1).limit(1).first)
-    message_string = render_to_string(partial: 'message', layout: false, formats: [:html],
-      locals: { message: @message, concurrent_message: concurrent_message })
+    is_concurrent = @message.decorate.concurrent?(
+      @conversation.messages.order(created_at: :desc).offset(1).limit(1).first
+    )
 
-    ConversationChannel.broadcast_to(@conversation, message_string)
+    message = {
+      message: render_to_string(partial: 'message', layout: false, formats: [:html],
+        locals: { message: @message, is_concurrent: is_concurrent })
+    }
+
+    ConversationMessagesChannel.broadcast_to(@conversation, message)
+  end
+
+  def broadcast_conversation
+    conversation_update = {
+      conversation_id: @conversation.id,
+      sender_id: @message.sender_id,
+      sender: @message.sender.first_name.capitalize,
+      text: @message.text,
+      date: @message.created_at
+    }
+    ConversationsChannel.broadcast_to(@conversation, conversation_update)
   end
 end
