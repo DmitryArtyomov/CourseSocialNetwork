@@ -32,7 +32,7 @@ module ApplicationHelper
       <div class='badge'>#{badge_count}</div>
     </div>
     BADGE
-    url = html_options[:badge_url] if html_options[:badge_url]
+    url = html_options[:badge_url] if html_options[:badge_url] && badge_count.to_i > 0
     link_to(url, html_options.except(:badge_count, :badge_url, :text_first)) do
       if html_options[:text_first]
         "<span>#{name} </span>".html_safe + fa_icon(icon) + "#{badge}".html_safe

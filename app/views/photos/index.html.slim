@@ -16,5 +16,5 @@
               style: "background-image: url('#{photo.image}');")
     - else
       h4.text-center
-        = link_to(@profile.first_name, profile_path(@profile))
-        |  hasn't uploaded any photos yet
+        = link_to(resource_owner(@profile, 'You'), profile_path(@profile))
+        = (@profile.current? ? " haven't" : " hasn't") + ' uploaded any photos yet'

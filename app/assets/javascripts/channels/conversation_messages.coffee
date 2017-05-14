@@ -12,7 +12,6 @@ $(document).on 'turbolinks:load', ->
   # Subscribe only to the current one if it is present
   sub = App.cable.subscriptions.create { channel: "ConversationMessagesChannel", id: channel_id},
     received: (data) ->
-      console.log(data)
       if data.message
         @appendMessage(data.message)
         $.ajax(

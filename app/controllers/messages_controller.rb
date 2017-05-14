@@ -6,6 +6,7 @@ class MessagesController < ApplicationController
 
   def create
     @message.sender = @profile
+    @conversation = @conversation.decorate
     authorize! :create, @message
     if @message.save
       @conversation.touch
@@ -40,6 +41,8 @@ class MessagesController < ApplicationController
   def broadcast_conversation
     conversation_update = {
       conversation_id: @conversation.id,
+      conversation_name: @message.sender.decorate.full_name,
+      conversation_avatar: @message.sender.avatar ? @message.sender.avatar.image.url : ActionController::Base.helpers.image_url('no-avatar.png'),
       sender_id: @message.sender_id,
       sender: @message.sender.first_name.capitalize,
       text: @message.text,

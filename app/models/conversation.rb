@@ -16,5 +16,5 @@ class Conversation < ApplicationRecord
   end
 
   scope :nonempty, -> { includes(:messages).where.not(messages: {conversation_id: nil}) }
-  scope :unread, -> (profile) { joins(:messages).merge(Message.unread_incoming(profile)) }
+  scope :unread, -> (profile) { joins(:messages).merge(Message.unread_incoming(profile)).group(:id) }
 end

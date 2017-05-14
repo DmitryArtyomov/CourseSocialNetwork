@@ -1,16 +1,15 @@
-- profiles = conversation.profiles.without(@profile)
-- avatar = profiles.first.avatar ? profiles.first.avatar.image : image_url('no-avatar.png')
+- conversation = conversation.decorate
 - last_message = conversation.messages.order(created_at: :desc).first
 - unread_count = conversation.unread_messages_count(@profile)
 .mini-conversation-block.mt-0(class = "#{'active' if @conversation == conversation}"
   id = "conversation-#{conversation.id}")
-  = link_to(profile_conversation_path(@profile, conversation.id)) do
+  = link_to(profile_conversation_path(@profile, conversation.id), title: conversation.name(@profile)) do
     .row.vert-align
       .col-xs-3.mini-avatar-col
-        = content_tag(:div, '', class: "mini-avatar", style: "background-image: url('#{avatar}');")
+        = content_tag(:div, '', class: "mini-avatar", style: "background-image: url('#{conversation.avatar(@profile)}');")
       .col-xs-9.mini-text-col
-        .last-message-time = short_time(conversation.updated_at)
-        .conversation-name = profiles.map{ |p| p.decorate.full_name }.join(', ')
+        .last-message-time = short_time(conversation.updated_at) unless @is_hidden
+        .conversation-name = conversation.name(@profile)
 
         .unread-count = unread_count unless unread_count.zero?
-        .last-message-text = "#{resource_owner(last_message.sender, 'You')}: #{last_message.text}"
+        .last-message-text = "#{resource_owner(last_message.sender, 'You')}: #{last_message.text}" unless @is_hidden

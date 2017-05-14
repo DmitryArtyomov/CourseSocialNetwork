@@ -78,6 +78,10 @@ class Profile < ApplicationRecord
       .union(incoming_declined_friend_requests.order(:updated_at))
   end
 
+  def conversation_with(profile)
+    conversations.joins(:profiles).where(profiles: {id: profile}).group('conversations.id').having('count(conversations.id) = ?', 1).first
+  end
+
   scope :online, -> {
     joins(:user).merge(User.where("last_seen > ?", Time.now - 10.minutes))
   }

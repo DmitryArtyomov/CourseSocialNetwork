@@ -20,7 +20,7 @@ class Ability
       can :index,   FriendRequest, recipient: { user_id: user.id }
       can :index,   FriendRequest, sender:    { user_id: user.id }
 
-      can [:view_requests, :view_conversations], Profile, user_id: user.id
+      can [:view_requests, :access_conversations], Profile, user_id: user.id
 
       can [:create, :read, :update], Conversation, profiles: { user_id: user.id }
       can :create, Message, sender: { user_id: user.id }, conversation: { profiles: { user_id: user.id } }
