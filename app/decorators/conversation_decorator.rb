@@ -14,7 +14,7 @@ class ConversationDecorator < Draper::Decorator
   private
 
   def profiles_without(profile)
-    @profiles ||= {}
-    @profiles[profile.id] ||= object.profiles.includes(:avatar).without(profile)
+    @profs_without ||= {}
+    @profs_without[profile.id] ||= object.profiles.where.not(id: profile.id).includes(:avatar)
   end
 end

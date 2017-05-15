@@ -1,7 +1,7 @@
 .col-sm-4
   .mtop.conversations-list
     - if @is_hidden
-      = render 'conversation', conversation: @conversation
+      = render 'conversation', conversation: @conversation, hidden: true
     - if @conversations.any?
       - @conversations.each do |conversation|
         = render 'conversation', conversation: conversation

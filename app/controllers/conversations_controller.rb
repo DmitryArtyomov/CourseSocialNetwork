@@ -11,8 +11,7 @@ class ConversationsController < ApplicationController
 
   def show
     authorize! :access_conversations, @profile
-    @conversations = @profile.conversations.includes(profiles: :avatar).includes(messages: :sender)
-      .nonempty.order(updated_at: :desc)
+    @conversations = @profile.conversations.nonempty.includes(profiles: :avatar).order(updated_at: :desc)
     @is_hidden = !@conversations.exists?(@conversation.id)
     update_messages_read
     @messages = @conversation.messages.includes(sender: :avatar).order(:created_at)

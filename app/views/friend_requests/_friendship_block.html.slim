@@ -9,8 +9,12 @@
           li = link_to('Remove from friends', profile_friend_request_path(fr.sender_id, fr),
             method: :delete)
 
-      = button_to('Send message', profile_conversations_path(current_profile),
-        params: { conversation: { participant_id: @profile } }, class: 'btn btn-primary w-100 mt-075')
+      - if conversation = current_profile.conversation_with(@profile)
+        = link_to('Send message', profile_conversation_path(current_profile, conversation),
+          class: 'btn btn-primary w-100 mt-075')
+      - else
+        = button_to('Send message', profile_conversations_path(current_profile),
+          params: { conversation: { participant_id: @profile } }, class: 'btn btn-primary w-100 mt-075')
 
     - elsif fr = @out_unaccepted_request
       = button_to('Cancel request', cancel_profile_friend_request_path(current_profile, fr),

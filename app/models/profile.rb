@@ -79,7 +79,8 @@ class Profile < ApplicationRecord
   end
 
   def conversation_with(profile)
-    conversations.joins(:profiles).where(profiles: {id: profile}).group('conversations.id').having('count(conversations.id) = ?', 1).first
+    conversations.joins(:profiles).where(profiles: {id: profile}).group('conversations.id')
+      .having('count(conversations.id) = ?', 1).first
   end
 
   scope :online, -> {
