@@ -3,7 +3,7 @@ $(document).on 'turbolinks:load', ->
   return if App.cable.conversations_channel
   return unless $('#messages_menu').data()
 
-  App.sound = new Audio('/sounds/message.mp3');
+  App.sound = new Audio('/sounds/message.mp3')
 
   App.cable.conversations_channel = App.cable.subscriptions.create { channel: "ConversationsChannel" },
 
@@ -67,7 +67,7 @@ $(document).on 'turbolinks:load', ->
       menu_item = $('#messages_menu')
       ids = menu_item.data().ids
       ids.push(updateData.conversation_id)
-      ids = `[...new Set(ids)]`
+      ids = Array.from(new Set(ids))
       menu_item.data().ids = ids
       menu_item.find('.badge').text("#{ids.length}")
 
