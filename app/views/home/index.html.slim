@@ -1,1 +1,33 @@
-h1 Hello, world!
+.col-xs-12
+  .page-block
+    h2 Stay In Touch
+    hr
+
+    p
+      <b>StayInTouch</b> is a social network project written by 
+      b = link_to("Dmitry Artyomov", "https://github.com/DmitryArtyomov/CourseSocialNetwork", target: "_blank", rel: "nofollow")
+      |  as a course project in <b>BSUIR</b>
+    p It is written using <b>Ruby on Rails</b>, featuring:
+    ul
+      li User authorization with <b>Devise</b>
+      li User authentication with <b>CanCanCan</b>
+      li <b>Slim</b> as a template engine
+      li <b>Bootstrap</b> as <b>CSS</b> framework
+      li <b>Carrierwave</b> used for uploading images to <b>Amazon S3</b> servers
+      li <b>ActionCable</b> for working with WebSockets
+      li <b>PostgreSQL</b> as a database
+      li
+        b = link_to("Heroku", "http://sit.herokuapp.com/", target: "_blank", rel: "nofollow")
+        |  as a hosting provider
+    hr
+
+    p It features:
+    ul
+      li Adaptive layout thanks to Bootstrap
+      li User registration with email-confirmation; logging in
+      li User profile with personal data
+      li Profile online status
+      li Photo uploading; setting photos as avatar
+      li Friend requests with 'follow'-like system
+      li Profile search
+      li Messaging system with live messages using WebSockets

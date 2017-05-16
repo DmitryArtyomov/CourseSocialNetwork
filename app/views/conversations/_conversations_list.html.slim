@@ -1,0 +1,10 @@
+.col-sm-4
+  .mtop.conversations-list
+    - if @is_hidden
+      = render 'conversation', conversation: @conversation, hidden: true
+    - if @conversations.any?
+      - @conversations.each do |conversation|
+        = render 'conversation', conversation: conversation
+    - elsif !@is_hidden
+      .page-block.text-center.no-conversations
+        h4 You don't have any conversations

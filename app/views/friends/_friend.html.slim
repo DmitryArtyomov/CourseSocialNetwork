@@ -12,11 +12,25 @@
     - if @profile && @profile.current?
       .col-sm-3.col-sm-auto.right-block.text-right.pl-0.hidden-xs
         - if fr = current_profile.accepted_friend_request_with(friend_profile)
+          - if friend_conversation = current_profile.conversation_with(friend_profile)
+            = link_to('Message', profile_conversation_path(current_profile, friend_conversation),
+              class: 'btn btn-primary mr-075')
+          - else
+            = button_to('Message', profile_conversations_path(current_profile),
+              params: { conversation: { participant_id: friend_profile } }, class: 'btn btn-primary mr-075',
+              form_class: 'inline-block')
           = link_to('Remove', profile_friend_request_path(fr.sender_id, fr),
-            method: :delete, class: 'btn btn-primary')
+            method: :delete, class: 'btn btn-danger')
   - if @profile && @profile.current?
     .row.mtop.visible-xs.row-centered
       .col-xs-auto.col-centered
           - if fr = current_profile.accepted_friend_request_with(friend_profile)
+            - if friend_conversation = current_profile.conversation_with(friend_profile)
+              = link_to('Message', profile_conversation_path(current_profile, friend_conversation),
+                class: 'btn btn-primary mr-075')
+            - else
+              = button_to('Message', profile_conversations_path(current_profile),
+                params: { conversation: { participant_id: friend_profile } }, class: 'btn btn-primary mr-075',
+                form_class: 'inline-block')
             = link_to('Remove', profile_friend_request_path(fr.sender_id, fr),
-              method: :delete, class: 'btn btn-primary')
+              method: :delete, class: 'btn btn-danger')

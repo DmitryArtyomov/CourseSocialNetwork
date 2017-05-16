@@ -23,5 +23,14 @@ Rails.application.routes.draw do
     end
 
     resources :friends, only: [:index]
+
+    resources :conversations, only: [:index, :create, :show] do
+      member do
+        patch :read
+      end
+      resources :messages, only: [:create]
+    end
   end
+
+  mount ActionCable.server => '/cable'
 end

@@ -78,9 +78,16 @@ class Profile < ApplicationRecord
       .union(incoming_declined_friend_requests.order(:updated_at))
   end
 
+  def conversation_with(profile)
+    conversations.joins(:profiles).where(profiles: {id: profile}).group('conversations.id')
+      .having('count(conversations.id) = ?', 1).first
+  end
+
   scope :online, -> {
     joins(:user).merge(User.where("last_seen > ?", Time.now - 10.minutes))
   }
 
   pg_search_scope :search_by_full_name, against: [:first_name, :last_name], using: { tsearch: { prefix: true } }
+
+  has_and_belongs_to_many :conversations
 end

@@ -25,21 +25,40 @@ module ApplicationHelper
   def fa_icon_link(name, icon, url = nil, html_options = {})
     html_options[:class] ||= 'list-group-item'
     html_options[:title] ||= name
-    if (badge_count = html_options[:badge_count]) && badge_count > 0
-      badge = <<-BADGE
-      <span class='badge'>#{badge_count}</span>
-      <div class='visible-sm'>
-        <div class='badge'>#{badge_count}</div>
-      </div>
-      BADGE
-      url = html_options[:badge_url]
-    end
-    link_to(url, html_options) do
+    badge_count = html_options[:badge_count].to_i > 0 ? html_options[:badge_count] : ''
+    badge = <<-BADGE
+    <span class='badge'>#{badge_count}</span>
+    <div class='visible-sm'>
+      <div class='badge'>#{badge_count}</div>
+    </div>
+    BADGE
+    url = html_options[:badge_url] if html_options[:badge_url] && badge_count.to_i > 0
+    link_to(url, html_options.except(:badge_count, :badge_url, :text_first)) do
       if html_options[:text_first]
         "<span>#{name} </span>".html_safe + fa_icon(icon) + "#{badge}".html_safe
       else
         fa_icon(icon) + "<span> #{name}</span>#{badge}".html_safe
       end
+    end
+  end
+
+  def short_time(datetime)
+    datetime = datetime.localtime
+    if datetime.today?
+      datetime.strftime "%H:%M"
+    elsif datetime.to_date == Date.yesterday
+      "yesterday"
+    else
+      datetime.strftime "%-d %B"
+    end
+  end
+
+  def full_time(datetime)
+    datetime = datetime.localtime
+    if datetime.today?
+      datetime.strftime "%H:%M"
+    else
+      datetime.strftime "%-d %B %H:%M"
     end
   end
 end
