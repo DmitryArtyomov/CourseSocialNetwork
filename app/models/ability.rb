@@ -5,7 +5,7 @@ class Ability
     user ||= User.new
     if user.id
       can [:update], Profile, user_id: user.id
-      can [:create, :update, :delete, :set_avatar, :remove_avatar], Photo, profile: { user_id: user.id }
+      can [:create, :update, :destroy, :set_avatar, :remove_avatar], Photo, profile: { user_id: user.id }
 
       can :create,  FriendRequest, sender:    { user_id: user.id }
       can :destroy, FriendRequest, sender:    { user_id: user.id }, status: 1
