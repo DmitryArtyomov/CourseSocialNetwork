@@ -1,0 +1,22 @@
+.page-block
+  h2.text-center.my-0 = "##{params[:id]}"
+
+- if @albums && @albums.any?
+  .page-block
+    .header
+      span Albums
+      span.count = @albums.length
+    .row
+      = render collection: @albums, partial: 'albums/album_preview', as: :album, locals: { show_profile: true }
+
+- if @photos && @photos.any?
+  .page-block
+    .header
+      span Photos
+      span.count = @photos.length
+    .row.mt-3
+      = render collection: @photos, partial: 'photos/photo_preview', as: :photo
+
+- unless (@albums && @albums.any?) || (@photos && @photos.any?)
+  .page-block
+    h4.text-center Nothing found

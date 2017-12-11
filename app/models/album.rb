@@ -19,8 +19,8 @@
 class Album < ApplicationRecord
   belongs_to :profile
 
-  has_many :taggings, as: :taggable
-  has_many :tags, through: :taggings, dependent: :destroy
+  has_many :taggings, as: :taggable, dependent: :destroy
+  has_many :tags, through: :taggings
 
   has_many :photos, dependent: :destroy
 

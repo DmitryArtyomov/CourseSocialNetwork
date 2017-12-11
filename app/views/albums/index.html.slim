@@ -1,0 +1,30 @@
+.col-sm-12
+  - if can? :upload_photo, @profile.albums.main
+    .page-block
+      = render 'photos/form'
+
+  .page-block
+    .header
+      = link_to("<b>#{resource_owner(@profile)}</b> ".html_safe, profile_path(@profile))
+      span albums
+      span.count = @albums.length
+    .row.photo-row
+      - if can? :create_nested_resource, @profile
+        .col-xs-6.col-sm-4.col-lg-3
+          .album-preview = link_to new_profile_album_path(@profile)
+            .album-name.bold New album
+            .previews-block
+              .collage-item-1 style=("background-image: url(#{image_url 'new.png'})")
+
+      = render partial: 'album_preview', collection: @albums, as: :album
+
+  - if @photos.any?
+    .page-block
+      .header
+        span All photos
+        span.count = @photos.length
+      .row.photo-row
+        - @photos.each do |photo|
+          .col-xs-6.col-sm-4.col-lg-3
+            = link_to('', profile_album_photo_path(@profile, photo.album_id, photo, all: true), class: "photo-thumb",
+              style: "background-image: url('#{photo.image}');")

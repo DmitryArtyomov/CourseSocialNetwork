@@ -10,20 +10,19 @@ class PhotosController < ApplicationController
 
   def create
     if @photo.save
-      redirect_to profile_album_photo_path(@profile, @photo.album_id, @photo)
+      redirect_to edit_profile_album_photo_path(@profile, @photo.album_id, @photo)
     else
       render "new"
     end
   end
 
   def edit
-
   end
 
   def update
     if @photo.update_attributes(photo_params) && @photo.tags = TagService.new(params[:photo][:tags]).tags
       flash[:success] = "Photo was successfully updated"
-      redirect_to profile_album_photo_path(@profile, @album, @photo)
+      redirect_to profile_album_photo_path(@profile, @photo.album_id, @photo)
     else
       flash[:alert] = "Error updating photo"
       render "edit"
@@ -31,11 +30,8 @@ class PhotosController < ApplicationController
   end
 
   def show
-  end
-
-  def index
-    @photos = @photos.order(created_at: :desc)
-    @profile = @profile.decorate
+    @comments = @photo.comments.includes(:profile, :commentable).order(created_at: :asc)
+    @view_all_photos = params[:all] == 'true'
   end
 
   def destroy
@@ -45,7 +41,7 @@ class PhotosController < ApplicationController
     else
       flash[:alert] = "Error deleting photo"
     end
-    redirect_to profile_album_photos_path(@profile, @album)
+    redirect_to profile_album_path(@profile, @album)
   end
 
   def remove_avatar

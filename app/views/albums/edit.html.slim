@@ -1,0 +1,3 @@
+- tags = @album.tags.map { |tag| { id: tag.text, text: tag.text, selected: true }}
+
+= render 'form', path: profile_album_path(@profile, @album), http_method: :put, text: 'Edit', tags: tags

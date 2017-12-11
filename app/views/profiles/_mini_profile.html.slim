@@ -4,8 +4,8 @@
 - text ||= nil
 - as_link ||= nil
 
-- if as_link
-  .mini-profile-block(class = "#{classes}")
+.mini-profile-block(class = "#{classes}")
+  - if as_link
     = link_to(profile_path(profile)) do
       .row.vert-align
         .col-xs-4.mini-avatar-col
@@ -17,8 +17,7 @@
               .muted-color = date.strftime("%-d %B %Y")
             - elsif text
               .muted-color = text
-- else
-  .mini-profile-block(class = "#{classes}")
+  - else
     .row.vert-align
       .col-xs-4.mini-avatar-col
         div = link_to('', profile_path(profile), class: "mini-avatar",

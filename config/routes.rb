@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :profiles, only: [:show, :update, :edit], path: '/' do
     resources :albums do
-      resources :photos do
+      resources :photos, except: [:index] do
         member do
           patch :set_avatar
           delete :remove_avatar
@@ -40,6 +40,8 @@ Rails.application.routes.draw do
 
   get   ':likeable_type/:likeable_id/likes', to: 'likes#fetch',  constraints: LikeableTypeRouteConstraint.new, as: 'likes'
   patch ':likeable_type/:likeable_id/like',  to: 'likes#toggle', constraints: LikeableTypeRouteConstraint.new, as: 'like'
+  post   ':commentable_type/:commentable_id/comments',     to: 'comments#create',  constraints: CommentableTypeRouteConstraint.new, as: 'comments'
+  delete ':commentable_type/:commentable_id/comments/:id', to: 'comments#destroy', constraints: CommentableTypeRouteConstraint.new, as: 'comment'
 
   mount ActionCable.server => '/cable'
 end

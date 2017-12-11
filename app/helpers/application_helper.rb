@@ -61,4 +61,16 @@ module ApplicationHelper
       datetime.strftime "%-d %B %H:%M"
     end
   end
+
+  def time_ago(datetime)
+    if datetime.today?
+      time_ago_in_words(datetime.localtime) + ' ago'
+    else
+      datetime.localtime.strftime "%-d %B %H:%M"
+    end
+  end
+
+  def current_profile?(profile)
+    profile && current_profile == profile
+  end
 end

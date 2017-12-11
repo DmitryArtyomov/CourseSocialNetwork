@@ -1,0 +1,21 @@
+- profile = album.profile
+- avatar = profile.avatar ? profile.avatar.image : image_url('no-avatar.png')
+- show_profile ||= false
+
+.col-xs-6.col-sm-4.col-lg-3
+  .album-preview = link_to profile_album_path(profile, album)
+    .album-name
+      = album.name
+    .previews-block
+      - photo_urls = album.photos.sample(4).map { |photo| photo.image.url }
+      - photo_urls.push(image_url 'no-photo.png') if photo_urls.empty?
+      - photo_urls.each do |url|
+        div class=("collage-item-#{photo_urls.size}") style=("background-image: url(#{url})")
+    - if show_profile
+      .album-profile
+        .vert-align.my-025
+          .col-xs-4.mini-avatar-col
+            = content_tag(:div, '', class: "mini-avatar", style: "background-image: url('#{avatar}');")
+          .col-xs-8.mini-text-col
+            .hide-overflow
+              div = profile.decorate.full_name

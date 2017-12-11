@@ -1,0 +1,46 @@
+.col-sm-11.col-md-9
+  / - if can? :create, @profile.albums.first.photos.build
+  /   .page-block
+  /     = render 'form'
+  .page-block
+    .col-xs-3.pl-0
+      = fa_icon_link('Back to albums', 'chevron-left', profile_albums_path(@profile), class: '')
+    .col-xs-6
+      .album-link.text-center.bold
+        = @album.name
+
+  - if @album.description.present? || @album.tags.any?
+    .page-block
+      div = @album.description if @album.description.present?
+      - if @album.tags.any?
+        .tags-block
+          = render @album.tags
+
+  - if can? :upload_photo, @album
+    .page-block
+      = render 'photos/form', album: @album
+
+  .page-block
+    - if @photos.any?
+      .row.photo-row
+        = render partial: 'photos/photo_preview', collection: @photos, as: :photo, locals: { profile: @profile, album: @album }
+        / - @photos.each do |photo|
+          .col-sm-3.col-xs-6
+            = link_to('', profile_album_photo_path(@profile, @album, photo), class: "photo-thumb",
+              style: "background-image: url('#{photo.image}');")
+    - else
+      h4.text-center
+        = link_to("<b>#{resource_owner(@profile, 'You')}</b>".html_safe, profile_path(@profile))
+        = (current_profile?(@profile) ? " haven't" : " hasn't") + ' uploaded any photos to this album'
+
+
+.col-sm-1.col-md-3.right-menu
+  = render 'profiles/mini_profile', profile: @profile, date: @album.created_at, classes: 'hidden-sm mt-0 mbot'
+
+  .list-group
+    = fa_icon_link("#{resource_owner(@profile)} photos", 'camera', profile_albums_path(@profile))
+
+    - if can? :update, @album
+      = fa_icon_link('Edit album', 'pencil', edit_profile_album_path(@profile, @album))
+      - if can? :destroy, @album
+        = fa_icon_link('Delete album', 'trash', profile_album_path(@profile, @album), method: :delete)

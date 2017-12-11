@@ -6,5 +6,5 @@
     .row.row-centered
       - @profile.photos.last(4).reverse.each do |photo|
         .col-xs-3.profile-photo-col
-          = link_to("", profile_album_photo_path(@profile, photo.album_id, photo), class: "profile-thumb",
+          = link_to("", profile_album_photo_path(@profile, photo.album_id, photo, all: true), class: "profile-thumb",
             style: "background-image: url('#{photo.image}');")

@@ -1,8 +1,8 @@
 class TagsController < ApplicationController
   def show
     if @tag = Tag.find_by(text: "##{params[:id]}")
-      @photos = @tag.photos.includes(album: :user)
-      @albums = @tag.albums.includes(:photos, :user)
+      @photos = @tag.photos.includes(:album).order(likes_count: :desc)
+      @albums = @tag.albums.includes(:photos, :profile)
     end
   end
 

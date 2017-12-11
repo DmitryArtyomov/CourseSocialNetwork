@@ -1,0 +1,19 @@
+- tags ||= []
+- text ||= 'New'
+- path ||= profile_albums_path(@profile)
+- http_method ||= :post
+
+.col-sm-6.col-sm-offset-3
+  .panel.panel-default.devise-bs
+    .panel-heading
+      h4
+        = "#{text} album"
+    .panel-body
+      = simple_form_for(@album, url: path, html: { method: http_method }) do |f|
+        = f.input :name, required: true, autofocus: true unless @album.is_main
+        = f.input :description
+        = f.input :tags, as: :select, input_html: { class: 'tags-select', multiple: true, data: { tags: tags, width: '100%' }},
+          collection: [], include_blank: false, include_hidden: false
+        = f.button :submit, 'Save', class: 'btn btn-primary'
+
+  = link_to t('.back', default: 'Back'), :back

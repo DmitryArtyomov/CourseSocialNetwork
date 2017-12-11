@@ -17,23 +17,24 @@ class LikesController < ApplicationController
     end
   end
 
+  private
   # Ensure that likeable model exists
-  private def likeable_exists!
+  def likeable_exists!
     @likeable = shared_params[:likeable_type].safe_constantize&.find(shared_params[:likeable_id])
     raise ActiveRecord::RecordNotFound if @likeable.blank?
   end
 
-  private def like_params
+  def like_params
     @like_params ||= shared_params.merge(profile_params)
   end
 
-  private def profile_params
+  def profile_params
     @profile_params ||= {
       profile_id: current_profile.id
     }
   end
 
-  private def shared_params
+  def shared_params
     @shared_params ||= {
       likeable_id:   params.require(:likeable_id),
       likeable_type: params.require(:likeable_type).to_s.camelize

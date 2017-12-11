@@ -1,17 +1,24 @@
+- view_all_photos_params = {}
+- view_all_photos_params.merge!(all: true) if @view_all_photos
+- next_photo = @photo.next(@view_all_photos)
+- prev_photo = @photo.previous(@view_all_photos)
+
+= render 'likes/modal'
 .col-sm-11.col-md-9
-  - if @photo.next || @photo.previous
-    .page-block
-      .col-xs-3.pl-0
-        - if @photo.next
-          = fa_icon_link('Previous', 'chevron-left',
-            profile_album_photo_path(@profile, @photo.album, @photo.next), class: '')
-      .col-xs-6
-        .album-link.text-center
-          = link_to(@photo.album.name, profile_album_path(@profile, @photo.album), class: 'bold')
-      .col-xs-3.pr-0
-        - if @photo.previous
-          = fa_icon_link('Next', 'chevron-right',
-            profile_album_photo_path(@profile, @photo.album, @photo.previous), class: 'pull-right', text_first: true)
+  .page-block
+    .col-xs-3.pl-0
+      - if next_photo
+        = fa_icon_link('Previous', 'chevron-left',
+          profile_album_photo_path(@profile, next_photo.album_id, next_photo, view_all_photos_params),
+          class: '')
+    .col-xs-6
+      .album-link.text-center
+        = link_to(@photo.album.name, profile_album_path(@profile, @photo.album), class: 'bold')
+    .col-xs-3.pr-0
+      - if prev_photo
+        = fa_icon_link('Next', 'chevron-right',
+          profile_album_photo_path(@profile, prev_photo.album_id, prev_photo, view_all_photos_params),
+          class: 'pull-right', text_first: true)
 
   .photo-upper-block
     - if @photo.description.present?
@@ -24,12 +31,35 @@
     .photo-social-block(id="social-block-photo-#{@photo.id}")
       = render 'likes/likes_block', likeable: @photo
       .comments-block
-        = fa_icon("comments-o lg")
-        span.pl-025 = pluralize(@photo.comments_count, 'comments')
+        a href='#' onclick="event.preventDefault();document.getElementById('comments-end').scrollIntoView(true);"
+          = fa_icon("comments-o lg")
+          span.pl-025 = pluralize(@photo.comments_count, 'comments')
 
   = image_tag(@photo.image, class: "img-responsive center-block-important page-block")
 
   = render 'profiles/mini_profile', profile: @profile, date: @photo.created_at, classes: 'visible-sm'
+
+  - if @comments.any? || can?(:create, Comment)
+    .page-block.mb-1
+      .header
+        | Comments
+        span.count = @comments.length
+
+      .comments-block
+        .comments
+          = render @comments
+        - if can?(:create, Comment)
+          .comment-form-block
+            = form_for :comment, url: comments_path('photo', @photo.id) do |f|
+              .input-group
+                = f.text_field :text, class: "form-control", placeholder: "Type your comment...",
+                  required: true, maxlength: 140
+                span.input-group-btn
+                  button.btn.btn-secondary type="submit"
+                    = fa_icon 'paper-plane'
+        #comments-end
+  - else
+    #comments-end
 
 .col-sm-1.col-md-3.right-menu
   = render 'profiles/mini_profile', profile: @profile, date: @photo.created_at, classes: 'hidden-sm mt-0 mbot'
@@ -49,5 +79,3 @@
       = fa_icon_link('Delete photo', 'trash', profile_album_photo_path(@profile, @photo.album_id, @photo), method: :delete)
 
     = fa_icon_link('Original image', 'download', @photo.image.to_s, target: :_blank)
-
-= render 'likes/modal'

@@ -1,3 +1,5 @@
-= simple_form_for @photo || Photo.new, url: profile_album_photos_path(@profile, @profile.albums.main) do |f|
+- album ||= @profile.albums.main
+
+= simple_form_for @photo || Photo.new(album_id: album.id), url: profile_album_photos_path(@profile, album) do |f|
   = f.file_field :image, required: true
   = f.button :submit, t('.upload', default: 'Upload'), class: 'btn btn-primary'
