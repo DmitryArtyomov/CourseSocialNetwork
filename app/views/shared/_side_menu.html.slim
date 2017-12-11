@@ -8,7 +8,7 @@
     = fa_icon_link('Friends', 'users', profile_friends_path(current_profile),
       badge_count: current_profile.incoming_pending_friend_requests.count,
       badge_url: profile_friend_requests_path(current_profile, section: :incoming))
-    = fa_icon_link('Photos', 'camera', profile_photos_path(current_profile))
+    = fa_icon_link('Photos', 'camera', profile_albums_path(current_profile))
   - elsif !(controller_name == 'sessions' && action_name == 'new')
     .hidden-sm
       = simple_form_for(:user, url: session_path(:user), html: { role: 'form', class: 'list-group-item' }) do |f|

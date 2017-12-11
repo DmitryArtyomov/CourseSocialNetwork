@@ -33,7 +33,8 @@ class Profile < ApplicationRecord
   validates :first_name, :last_name, presence: true, length: { minimum: 2, maximum: 30 }
   validates :gender, :date_of_birth, presence: true
 
-  has_many :photos
+  has_many :albums
+  has_many :photos, through: :albums
   belongs_to :avatar, class_name: 'Photo', optional: true
 
 
@@ -74,13 +75,22 @@ class Profile < ApplicationRecord
   end
 
   def incoming_requests
-    incoming_pending_friend_requests.order(:updated_at)
+    incoming_pending_friend_requests
+      .order(:updated_at)
       .union(incoming_declined_friend_requests.order(:updated_at))
   end
 
   def conversation_with(profile)
-    conversations.joins(:profiles).where(profiles: {id: profile}).group('conversations.id')
-      .having('count(conversations.id) = ?', 1).first
+    conversations
+      .joins(:profiles)
+      .where(profiles: {id: profile})
+      .group('conversations.id')
+      .having('count(conversations.id) = ?', 1)
+      .first
+  end
+
+  def full_name
+    [first_name, last_name].join(' ')
   end
 
   scope :online, -> {

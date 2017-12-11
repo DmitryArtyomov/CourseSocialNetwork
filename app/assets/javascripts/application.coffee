@@ -7,4 +7,7 @@
 #= require date_time_picker
 #= require navbar_brand
 #= require messages_block
+#= require likes_modal
+#= require select2
+#= require tags_selectors
 #= require cable

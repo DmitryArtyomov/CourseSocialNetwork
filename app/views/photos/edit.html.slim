@@ -1,0 +1,16 @@
+- tags = @photo.tags.map { |tag| { id: tag.text, text: tag.text, selected: true }}
+
+.col-sm-6.col-sm-offset-3
+  .panel.panel-default.devise-bs
+    .panel-heading
+      h4
+        = 'Edit photo'
+    .panel-body
+      = simple_form_for(@photo, url: profile_album_photo_path([@profile, @album, @photo]), html: { method: :put }) do |f|
+        = f.input :album_id, collection: @profile.albums, default: @album, include_blank: false, include_hidden: false
+        = f.input :tags, as: :select, input_html: { class: 'tags-select', multiple: true, data: { tags: tags, width: '100%' }},
+          collection: [], include_blank: false, include_hidden: false
+        = f.input :description
+        = f.button :submit, 'Save', class: 'btn btn-primary'
+
+  = link_to t('.back', default: 'Back'), :back

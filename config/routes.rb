@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { registrations: 'registrations' },
+  devise_for :users, controllers: { registrations: 'registrations', confirmations: 'confirmations' },
     path: '', path_names: { sign_in: 'login', sign_out: 'logout', edit: 'settings'}
 
   root to: "home#index"
@@ -7,10 +7,12 @@ Rails.application.routes.draw do
   get 'search', to: 'search#index'
 
   resources :profiles, only: [:show, :update, :edit], path: '/' do
-    resources :photos, except: [:update] do
-      member do
-        patch :set_avatar
-        delete :remove_avatar
+    resources :albums do
+      resources :photos do
+        member do
+          patch :set_avatar
+          delete :remove_avatar
+        end
       end
     end
 
@@ -31,6 +33,13 @@ Rails.application.routes.draw do
       resources :messages, only: [:create]
     end
   end
+
+  resources :tags, only: [:show] do
+    get 'fetch', on: :collection
+  end
+
+  get   ':likeable_type/:likeable_id/likes', to: 'likes#fetch',  constraints: LikeableTypeRouteConstraint.new, as: 'likes'
+  patch ':likeable_type/:likeable_id/like',  to: 'likes#toggle', constraints: LikeableTypeRouteConstraint.new, as: 'like'
 
   mount ActionCable.server => '/cable'
 end

@@ -1,7 +1,8 @@
 class PhotosController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   load_and_authorize_resource :profile
-  load_and_authorize_resource through: :profile
+  load_and_authorize_resource :album, through: :profile
+  load_and_authorize_resource through: :album
 
   def new
     @photo = Photo.new(photo_params)
@@ -9,9 +10,23 @@ class PhotosController < ApplicationController
 
   def create
     if @photo.save
-      redirect_to profile_photo_path(@photo.profile, @photo)
+      redirect_to profile_album_photo_path(@profile, @photo.album_id, @photo)
     else
       render "new"
+    end
+  end
+
+  def edit
+
+  end
+
+  def update
+    if @photo.update_attributes(photo_params) && @photo.tags = TagService.new(params[:photo][:tags]).tags
+      flash[:success] = "Photo was successfully updated"
+      redirect_to profile_album_photo_path(@profile, @album, @photo)
+    else
+      flash[:alert] = "Error updating photo"
+      render "edit"
     end
   end
 
@@ -30,7 +45,7 @@ class PhotosController < ApplicationController
     else
       flash[:alert] = "Error deleting photo"
     end
-    redirect_to profile_photos_path(@profile)
+    redirect_to profile_album_photos_path(@profile, @album)
   end
 
   def remove_avatar
@@ -56,6 +71,6 @@ class PhotosController < ApplicationController
   private
 
   def photo_params
-    params.fetch(:photo, {}).permit(:image, :profile_id)
+    params.fetch(:photo, {}).permit(:image, :profile_id, :album_id, :description)
   end
 end

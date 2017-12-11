@@ -1,11 +1,31 @@
 .col-sm-11.col-md-9
   - if @photo.next || @photo.previous
     .page-block
-      - if @photo.next
-        = fa_icon_link('Previous', 'chevron-left', profile_photo_path(@photo.next.profile, @photo.next), class: '')
-      - if @photo.previous
-        = fa_icon_link('Next', 'chevron-right', profile_photo_path(@photo.previous.profile, @photo.previous),
-          class: 'pull-right', text_first: true)
+      .col-xs-3.pl-0
+        - if @photo.next
+          = fa_icon_link('Previous', 'chevron-left',
+            profile_album_photo_path(@profile, @photo.album, @photo.next), class: '')
+      .col-xs-6
+        .album-link.text-center
+          = link_to(@photo.album.name, profile_album_path(@profile, @photo.album), class: 'bold')
+      .col-xs-3.pr-0
+        - if @photo.previous
+          = fa_icon_link('Next', 'chevron-right',
+            profile_album_photo_path(@profile, @photo.album, @photo.previous), class: 'pull-right', text_first: true)
+
+  .photo-upper-block
+    - if @photo.description.present?
+      div = @photo.description
+    - if @photo.tags.any?
+      .tags-block
+        = render @photo.tags
+    - if @photo.description.present? || @photo.tags.any?
+      hr
+    .photo-social-block(id="social-block-photo-#{@photo.id}")
+      = render 'likes/likes_block', likeable: @photo
+      .comments-block
+        = fa_icon("comments-o lg")
+        span.pl-025 = pluralize(@photo.comments_count, 'comments')
 
   = image_tag(@photo.image, class: "img-responsive center-block-important page-block")
 
@@ -15,15 +35,19 @@
   = render 'profiles/mini_profile', profile: @profile, date: @photo.created_at, classes: 'hidden-sm mt-0 mbot'
 
   .list-group
-    = fa_icon_link("#{resource_owner(@photo.profile)} photos", 'camera', profile_photos_path(@profile))
+    = fa_icon_link("#{resource_owner(@profile)} photos", 'camera', profile_albums_path(@profile))
 
     - if can? :update, @photo
-      - if @profile.avatar == @photo
-        = fa_icon_link('Remove avatar', 'user-circle-o', remove_avatar_profile_photo_path(@profile, @photo),
-          method: :delete)
+      - if @profile.avatar_id == @photo.id
+        = fa_icon_link('Remove avatar', 'user-circle-o',
+          remove_avatar_profile_album_photo_path(@profile, @photo.album, @photo), method: :delete)
       - else
-        = fa_icon_link('Set as avatar', 'user-circle', set_avatar_profile_photo_path(@profile, @photo),
-          method: :patch)
-      = fa_icon_link('Delete photo', 'trash', profile_photo_path(@profile, @photo), method: :delete)
+        = fa_icon_link('Set as avatar', 'user-circle',
+        set_avatar_profile_album_photo_path(@profile, @photo.album, @photo), method: :patch)
+
+      = fa_icon_link('Edit photo', 'pencil', edit_profile_album_photo_path(@profile, @photo.album_id, @photo))
+      = fa_icon_link('Delete photo', 'trash', profile_album_photo_path(@profile, @photo.album_id, @photo), method: :delete)
 
     = fa_icon_link('Original image', 'download', @photo.image.to_s, target: :_blank)
+
+= render 'likes/modal'

@@ -1,0 +1,10 @@
+div class=(request.xhr? ? 'col-sm-12' : 'col-sm-11 col-md-9')
+  .page-block
+    - if @likes.present?
+      .header
+        span.bold.pl-05 = pluralize(@likes.length, 'like')
+    .row
+      - if @likes.present?
+        = render @likes
+      - else
+        h4.text-center.mtop There are currently no likes

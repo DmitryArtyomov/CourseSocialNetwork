@@ -2,15 +2,18 @@
 #
 # Table name: photos
 #
-#  id         :integer          not null, primary key
-#  image      :string
-#  profile_id :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  image          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  album_id       :integer
+#  comments_count :integer          default("0")
+#  likes_count    :integer          default("0")
+#  description    :text
 #
 # Indexes
 #
-#  index_photos_on_profile_id  (profile_id)
+#  index_photos_on_album_id  (album_id)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

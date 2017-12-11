@@ -1,0 +1,6 @@
+- profile = like.profile
+- avatar = profile.avatar ? profile.avatar.image : image_url('no-avatar.png')
+.col-xs-4.col-sm-2.mb-1.text-center
+  = link_to(profile_path(profile)) do
+    = content_tag(:div, '', class: "mini-avatar", style: "background-image: url('#{avatar}');")
+    .mini-friend-name = profile.full_name

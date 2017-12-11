@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.4.0"
+ruby "2.4.1"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -49,6 +49,8 @@ gem 'draper', '3.0.0.pre1'
 gem 'cancancan'
 gem 'active_record_union'
 gem 'pg_search'
+gem 'select2-rails'
+gem 'active_model_serializers', '~> 0.10.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

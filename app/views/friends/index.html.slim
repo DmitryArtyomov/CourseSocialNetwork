@@ -20,7 +20,7 @@
           span.count = @online_count
     - if @friends.length.zero?
       h4.text-center.mtop
-        = @section == 'online' ? 'Noone of your friends is online' : "You haven't added any friends yet"
+        = @section == 'online' ? 'None of your friends is online' : "You haven't added any friends yet"
     - else
       - @friends.each do |friend|
         = render 'friend', friend_profile: friend.decorate
