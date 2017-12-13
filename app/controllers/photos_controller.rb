@@ -30,7 +30,7 @@ class PhotosController < ApplicationController
   end
 
   def show
-    @comments = @photo.comments.includes(:profile, :commentable).order(created_at: :asc)
+    @comments = @photo.comments.includes(:commentable, profile: :avatar).order(created_at: :asc)
     @view_all_photos = params[:all] == 'true'
   end
 

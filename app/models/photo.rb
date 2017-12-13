@@ -17,13 +17,14 @@
 #
 
 class Photo < ApplicationRecord
+  include Likeable
+
   belongs_to :album, counter_cache: true
   has_one :profile, through: :album
 
   has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
 
-  has_many :likes, as: :likeable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
   mount_uploader :image, PhotoUploader
@@ -47,9 +48,5 @@ class Photo < ApplicationRecord
     else
       @previous[:album] ||= self.class.where(album_id: album_id).where("id < ?", id).last
     end
-  end
-
-  def has_like?(profile)
-    profile && likes.where(profile_id: profile.id).exists?
   end
 end

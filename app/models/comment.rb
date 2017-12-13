@@ -9,6 +9,7 @@
 #  commentable_id   :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  likes_count      :integer          default("0")
 #
 # Indexes
 #
@@ -17,6 +18,8 @@
 #
 
 class Comment < ApplicationRecord
+  include Likeable
+
   belongs_to :profile
   belongs_to :commentable, polymorphic: true, counter_cache: :comments_count
 

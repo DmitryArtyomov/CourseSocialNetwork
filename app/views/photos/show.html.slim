@@ -28,7 +28,7 @@
         = render @photo.tags
     - if @photo.description.present? || @photo.tags.any?
       hr
-    .photo-social-block(id="social-block-photo-#{@photo.id}")
+    .photo-social-block
       = render 'likes/likes_block', likeable: @photo
       .comments-block
         a href='#' onclick="event.preventDefault();document.getElementById('comments-end').scrollIntoView(true);"

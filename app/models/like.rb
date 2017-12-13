@@ -18,7 +18,8 @@ class Like < ApplicationRecord
   belongs_to :likeable, polymorphic: true, counter_cache: :likes_count
 
   LIKEABLE_TYPES = [
-    :photo
+    :photo,
+    :comment
   ].freeze
 
   def self.valid_likeable_type?(string_to_test)

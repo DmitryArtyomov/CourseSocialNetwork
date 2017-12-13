@@ -1,4 +1,4 @@
-let likesBlock = $('#social-block-<%= @likeable.class.to_s.downcase %>-<%= @likeable.id %> .likes-block')
+let likesBlock = $('.likes-block#likes-block-<%= @likeable.class.to_s.underscore %>-<%= @likeable.id %>')
 <% if @like.persisted? %>
 	likesBlock.find('i').removeClass('fa-heart-o').addClass('fa-heart')
 <% else %>

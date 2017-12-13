@@ -13,7 +13,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.where(destroy_params).find(params[:id])
+    @comment = Comment.where(shared_params).find(params[:id])
+    authorize! :destroy, @comment
     if @comment.destroy
       flash[:notice] = "Comment was succesfully deleted"
       redirect_to(request.env['HTTP_REFERER'])
@@ -32,10 +33,6 @@ class CommentsController < ApplicationController
 
   def create_params
     @create_params ||= shared_params.merge(profile_params).merge(comment_params)
-  end
-
-  def destroy_params
-    @destroy_params ||= shared_params.merge(profile_params)
   end
 
   def comment_params

@@ -15,4 +15,5 @@
               = fa_icon 'times'
         = link_to(profile.full_name, profile_path(profile))
         .comment-text = comment.text
+        = render 'likes/likes_block', likeable: comment, classes: 'pull-right'
         .muted-color = time_ago(comment.created_at)
