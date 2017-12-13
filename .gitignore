@@ -18,3 +18,5 @@
 
 # Ignore ENV variables in .env
 .env
+
+/db/backups/*
