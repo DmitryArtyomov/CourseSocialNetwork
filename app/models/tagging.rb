@@ -5,6 +5,7 @@
 #  tag_id        :integer
 #  taggable_type :string
 #  taggable_id   :integer
+#  id            :integer          not null, primary key
 #
 # Indexes
 #

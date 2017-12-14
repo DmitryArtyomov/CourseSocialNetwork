@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171213185939) do
+ActiveRecord::Schema.define(version: 20171213212257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 20171213185939) do
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true, using: :btree
   end
 
-  create_table "taggings", id: false, force: :cascade do |t|
+  create_table "taggings", force: :cascade do |t|
     t.integer "tag_id"
     t.string  "taggable_type"
     t.integer "taggable_id"

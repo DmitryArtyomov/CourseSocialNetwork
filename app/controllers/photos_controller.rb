@@ -36,7 +36,6 @@ class PhotosController < ApplicationController
 
   def destroy
     if @photo.destroy
-      @photo.image.remove!
       flash[:notice] = "Photo was succesfully deleted"
     else
       flash[:alert] = "Error deleting photo"

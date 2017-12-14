@@ -44,7 +44,7 @@ module ApplicationHelper
 
   def short_time(datetime)
     datetime = datetime.localtime
-    if datetime.today?
+    if is_today?(datetime)
       datetime.strftime "%H:%M"
     elsif datetime.to_date == Date.yesterday
       "yesterday"
@@ -55,7 +55,7 @@ module ApplicationHelper
 
   def full_time(datetime)
     datetime = datetime.localtime
-    if datetime.today?
+    if is_today?(datetime)
       datetime.strftime "%H:%M"
     else
       datetime.strftime "%-d %B %H:%M"
@@ -63,8 +63,9 @@ module ApplicationHelper
   end
 
   def time_ago(datetime)
-    if datetime.today?
-      time_ago_in_words(datetime.localtime) + ' ago'
+    datetime = datetime.localtime
+    if is_today?(datetime)
+      time_ago_in_words(datetime) + ' ago'
     else
       datetime.localtime.strftime "%-d %B %H:%M"
     end
@@ -72,5 +73,9 @@ module ApplicationHelper
 
   def current_profile?(profile)
     profile && current_profile == profile
+  end
+
+  private def is_today?(datetime)
+    datetime.to_date >= Date.today
   end
 end

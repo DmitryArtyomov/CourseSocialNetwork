@@ -16,10 +16,10 @@
 #  index_messages_on_sender_id        (sender_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :message do
-    text "MyText"
-    sender nil
-    conversation nil
+    text { Faker::HitchhikersGuideToTheGalaxy.quote }
+    association :sender, factory: :profile
+    conversation
   end
 end
