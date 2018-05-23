@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171213212257) do
+ActiveRecord::Schema.define(version: 20180422203028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20171213212257) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "conversations_profiles", id: false, force: :cascade do |t|
+  create_table "conversations_profiles", force: :cascade do |t|
     t.integer "profile_id",      null: false
     t.integer "conversation_id", null: false
     t.index ["conversation_id", "profile_id"], name: "index_conversations_profiles_on_conversation_id_and_profile_id", using: :btree
@@ -146,10 +146,14 @@ ActiveRecord::Schema.define(version: 20171213212257) do
 
   add_foreign_key "albums", "profiles", on_delete: :cascade
   add_foreign_key "comments", "profiles", on_delete: :cascade
+  add_foreign_key "conversations_profiles", "conversations", on_delete: :cascade
+  add_foreign_key "conversations_profiles", "profiles", on_delete: :cascade
   add_foreign_key "friend_requests", "profiles", column: "recipient_id", on_delete: :cascade
   add_foreign_key "friend_requests", "profiles", column: "sender_id", on_delete: :cascade
   add_foreign_key "likes", "profiles"
+  add_foreign_key "messages", "conversations", on_delete: :cascade
   add_foreign_key "messages", "profiles", column: "sender_id"
+  add_foreign_key "photos", "albums", on_delete: :cascade
   add_foreign_key "profiles", "photos", column: "avatar_id", on_delete: :nullify
   add_foreign_key "profiles", "users"
   add_foreign_key "taggings", "tags", on_delete: :cascade
